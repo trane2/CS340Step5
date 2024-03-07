@@ -1,71 +1,41 @@
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-{{!-- Create a table --}}
-<table id="employees-table">
-    <thead>
-        <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-        </tr>
-    </thead>
-
-    {{!-- Body section --}}
-    <tbody>
-        {{#each data}}
-        <tr data-value={{this.employee_id}}>
-            <td>{{this.employee_id}}</td>
-            <td>{{this.employee_nametag}}</td>
-            <td>{{this.employee_phone}}</td>
-            <td><button onclick="deleteEmployee({{this.employee_id}})">Delete</button></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
-<script src="./js/delete_employee.js"></script>
-
-{{!-- Form to add a record to the table  --}}
-<h2>Add Employee</h2>
-<p>To add a new employee, enter their information below and click 'Submit'!</p>
-<form id="add-employee-form-ajax">
-    <label for="input-employee_nametag-add">Employee Nametag: </label>
-    <input type="text" name="input-employee_nametag" id="input-employee_nametag">
-    
-    <label for="input-employee_phone-add">Employee Phone: </label>
-    <input type="text" name="input-employee_phone" id="input-employee_phone">
-
-    <input type="submit">
-</form>
-<script src="./js/add_employee.js"></script>
-
-{{!-- Form to update an employee's information --}}
-<h2>Update an Employee's Phone</h2>
-<p>Select an employee from the drop down menu, input new information, and click 'Submit'!</p>
-<form id="update-employee-form-ajax">
-    <label for="input-employee_nametag-update">Employee Nametag: </label>
-    <select name="input-employee_nametag-update" id="employee-select">
-        <option value="test">Select an Employee</option>
-        {{#each data}}
-        <option value="{{this.employee_id}}">{{this.employee_nametag}}</option>
-        {{/each}}
-    </select>
-
-    <label for="input-employee_phone-update">Employee Phone: </label>
-    <input type="text" name="input-employee_phone-update" id="input-employee_phone-update">
-    <input type="submit">
-</form>
-<script src="./js/update_employee.js"></script>
-
-{{!-- Form to search an employee from table  --}}
-<h2>Search</h2>
-<p>Search by an employee's nametag using the search bar and click 'Submit'!</p>
-<form id="search-employee-html" method='GET' action='/'>
-    <label for="input-employee_nametag-search">Search by Employee Name: </label>
-    <input type="text" name="employeeNametagSearch" id="input-employee_nametag-html-search">
-    
-    <input type="submit">
-    <a href='/'><button>Reset</button></a>
-</form>
+<body>
+    <header><h1>Floatality Hut Database</h1></header>
+    <nav>
+      [[ 
+      <a href="/">Home</a>
+        |
+      <a href="employees">Employees</a>
+        |  
+      <a href="locations.html">Locations</a>
+        |  
+      <a href="employees_locations.html">Employees by Location</a>
+        |  
+      <a href="products_by_locations.html">Location Inventory</a>
+        |  
+      <a href="products.html">Products</a>
+        |  
+      <a href="customers.html">Customers</a>
+        |  
+      <a href="sales.html">Sales</a>
+        | 
+      <a href="sales_has_products.html">Products in Sales</a> 
+      ]]
+    </nav>
+        <main>
+            <section>
+                <h2>Our Mission</h2>
+                <p>Floatality Hut operates 5 beachfront stores which accrue a combined
+                    $1,500,000 net profit annually, each store averaging 750 monthly sale transactions and
+                    1000 monthly customers. Specializing in the sales of knickknacks and towels, each
+                    product, although individually valued at no more than $80, possesses a unique touch,
+                    with designer towels standing out to be one-of-a-kind. The website-driven database is
+                    meticulously designed to track Products, Sales, Employees, and Customers for each of
+                    our beachfront Locations. This strategic approach will solve common problems local
+                    businesses consistently deal with, such as managing inventory space and storage in
+                    order to maximize profits. In other words, it will give insight regarding bestselling and
+                    least selling products, which would aid in the decision to increase or decrease inventory
+                    sizes for these specific products. Additionally, it will track all Sales made in each
+                    Location, as well as employee sales for performance reports on its 35 employees</p>
+            </section>
+        </main>
+</body>
