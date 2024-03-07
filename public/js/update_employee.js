@@ -4,9 +4,11 @@ updatePersonForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     let selectedEmployee = document.getElementById("employee-select");
+    let inputEmployeeNametag = document.getElementById("input-employee_nametag-update");
     let inputEmployeePhone = document.getElementById("input-employee_phone-update");
 
     let employeeID = selectedEmployee.value;
+    let employeeNametag = inputEmployeeNametag.value;
     let employeePhoneValue = inputEmployeePhone.value;
 
     if (isNaN(employeePhoneValue)) {
@@ -15,7 +17,8 @@ updatePersonForm.addEventListener("submit", function (e) {
 
     let data = {
         employee_id: employeeID,
-        employee_phone: employeePhoneValue,
+        employee_nametag: employeeNametag,
+        employee_phone: employeePhoneValue
     }
     
     var xhttp = new XMLHttpRequest();
@@ -40,8 +43,10 @@ function updateRow(data, employee_id){
     for (let i = 0, row; row = table.rows[i]; i++) {
         if (table.rows[i].getAttribute("data-value") == employee_id) {
                 let updateRowIndex = table.getElementsByTagName("tr")[i];
-                let td = updateRowIndex.getElementsByTagName("td")[2];
-                td.innerHTML = parsedData[0].employee_phone; 
+                let tdNametag = updateRowIndex.getElementsByTagName("td")[2];
+                tdNametag.innerHTML = parsedData[0].employee_nametag
+                let tdPhone = updateRowIndex.getElementsByTagName("td")[3];
+                tdPhone.innerHTML = parsedData[0].employee_phone; 
         }
     }
 }

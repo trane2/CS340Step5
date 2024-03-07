@@ -107,12 +107,13 @@ app.put('/update-employee-ajax', function(req, res, next) {
     let data = req.body;
   
     let employeeID = data.employee_id;
+    let employeeNametag = data.employee_nametag;
     let employeePhone = data.employee_phone;
   
-    let queryUpdateWorld = `UPDATE employees SET employee_phone = ? WHERE employees.employee_id = ?`;
+    let queryUpdateWorld = `UPDATE employees SET employee_nametag = ?, employee_phone = ? WHERE employees.employee_id = ?`;
     let selectWorld = `SELECT * FROM employees WHERE employee_id = ?`
   
-    db.pool.query(queryUpdateWorld, [employeePhone, employeeID], function(error, rows, fields) {
+    db.pool.query(queryUpdateWorld, [employeeNametag, employeePhone, employeeID], function(error, rows, fields) {
         if (error) {
             console.log(error);
             res.sendStatus(400);
@@ -402,7 +403,7 @@ app.post('/add-product-ajax', function(req, res) {
 
 app.delete('/delete-product-ajax', function(req, res, next) {
     let data = req.body;
-    let productID = parseInt(data.customer_id);
+    let productID = parseInt(data.product_id);
     let deleteProductQuery = `DELETE FROM products WHERE product_id = ?`;
 
     db.pool.query(deleteProductQuery, [productID], function(error, rows, fields) {

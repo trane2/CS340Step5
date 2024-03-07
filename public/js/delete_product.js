@@ -7,7 +7,7 @@
 function deleteProduct(productID) {
     let link = '/delete-product-ajax';
     let data = {
-      location_id: productID
+      product_id: productID
     };
   
     $.ajax({
@@ -16,7 +16,7 @@ function deleteProduct(productID) {
       data: JSON.stringify(data),
       contentType: "application/json; charset=utf-8",
       success: function(result) {
-        deleteLocationRow(productID);
+        deleteProductRow(productID);
       }
     });
   }

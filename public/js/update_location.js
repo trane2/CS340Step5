@@ -88,32 +88,32 @@ function updateRow(data, locationID){
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
             // Get td of wares_capacity value
-            let tdWares = updateRowIndex.getElementsByTagName("td")[1];
+            let tdWares = updateRowIndex.getElementsByTagName("td")[2];
 
             // Reassign wares_capacity to our value we updated to
             tdWares.innerHTML = updatedRow.wares_capacity; 
             
             
             // Get td of address value
-            let tdAddress = updateRowIndex.getElementsByTagName("td")[2];
+            let tdAddress = updateRowIndex.getElementsByTagName("td")[3];
 
             // Reassign address_line to our value we updated to
             tdAddress.innerHTML = updatedRow.address_line;
 
             // Get td of city value
-            let tdCity = updateRowIndex.getElementsByTagName("td")[3];
+            let tdCity = updateRowIndex.getElementsByTagName("td")[4];
 
             // Reassign city to our value we updated to
             tdCity.innerHTML = updatedRow.city;
 
             // Get td of postal_code value
-            let tdPostal = updateRowIndex.getElementsByTagName("td")[4];
+            let tdPostal = updateRowIndex.getElementsByTagName("td")[5];
 
             // Reassign postal_code to our value we updated to
             tdPostal.innerHTML = updatedRow.postal_code; 
 
             // Get td of site_phone value
-            let tdSitePhone = updateRowIndex.getElementsByTagName("td")[5];
+            let tdSitePhone = updateRowIndex.getElementsByTagName("td")[6];
 
             // Reassign site_phone to our value we updated to
             tdSitePhone.innerHTML = updatedRow.site_phone; 

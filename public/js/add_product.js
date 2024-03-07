@@ -59,7 +59,7 @@ function addRowToTable(data) {
     let deleteButton = document.createElement("button");
     deleteButton.innerHTML = "Delete";
     deleteCell.onclick = function(){
-        deleteLocation(newRow.employee_id);
+        deleteProduct(newRow.product_id);
     };
     deleteCell.appendChild(deleteButton);
 

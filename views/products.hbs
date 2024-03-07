@@ -43,7 +43,7 @@
     <tbody>
         {{#each data}}
         <tr data-value={{this.product_id}}>
-            <td><button onclick="deleteProduct({{this.employee_id}})">Delete</button></td>
+            <td><button onclick="deleteProduct({{this.product_id}})">Delete</button></td>
             <td>{{this.product_id}}</td>
             <td>{{this.price}}</td>
             <td>{{this.label}}</td>
@@ -53,7 +53,7 @@
     </tbody>
 </table>
 <link rel="stylesheet" href="./css/style.css">
-<script src="./js/delete_employee.js"></script>
+<script src="./js/delete_product.js"></script>
 
 {{!-- Form to add a record to the table  --}}
 <h2>Add Product</h2>
