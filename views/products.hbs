@@ -1,0 +1,109 @@
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<header><h1>Products</h1></header>
+<nav>
+    [[ 
+    <a href="/">Home</a>
+    |
+    <a href="employees">Employees</a>
+    |  
+    <a href="locations">Locations</a>
+    |  
+    <a href="employees_locations.html">Employees by Location</a>
+    |  
+    <a href="products_by_locations.html">Location Inventory</a>
+    |  
+    <a href="products">Products</a>
+    |  
+    <a href="customers.html">Customers</a>
+    |  
+    <a href="sales.html">Sales</a>
+    | 
+    <a href="sales_has_products.html">Products in Sales</a> 
+    ]]
+</nav>
+
+<br></br>
+
+{{!-- Create a table --}}
+<table id="products-table">
+    <thead>
+        <tr>
+            <th>delete</th>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.product_id}}>
+            <td><button onclick="deleteProduct({{this.employee_id}})">Delete</button></td>
+            <td>{{this.product_id}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.label}}</td>
+            <td>{{this.designer}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<link rel="stylesheet" href="./css/style.css">
+<script src="./js/delete_employee.js"></script>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Product</h2>
+<p>To add a new product, enter its information below and click 'Submit'!</p>
+<form id="add-product-form-ajax">
+    <label for="input-price-add">Product Price: </label>
+    <input type="number" step="0.01" name="input-price" id="input-price">
+
+    <label for="input-label-add">Label: </label>
+    <input type="text" name="input-label" id="input-label">
+    
+    <label for="input-designer-add">Designer: </label>
+    <input type="text" name="input-designer" id="input-designer">
+
+    <input type="submit">
+</form>
+<script src="./js/add_product.js"></script>
+
+{{!-- Form to update an employee's information --}}
+<h2>Update Product</h2>
+<p>Select a product from the drop down menu, input new information, and click 'Submit'!</p>
+<form id="update-product-form-ajax">
+    <label for="input-product_label-update">Product Label: </label>
+    <select name="input-product_label-update" id="product-select">
+        <option value="test">Select a Product</option>
+        {{#each data}}
+        <option value="{{this.product_id}}">{{this.label}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-price-update">Price: </label>
+    <input type="number" step="0.01" name="input-price-update" id="input-price-update">
+
+    <label for="input-label-update">Label: </label>
+    <input type="text" name="input-label-update" id="input-label-update">
+    
+    <label for="input-designer-update">Designer: </label>
+    <input type="text" name="input-designer-update" id="input-designer-update">
+
+    <input type="submit">
+</form>
+<script src="./js/update_product.js"></script>
+
+{{!-- Form to search an employee from table  --}}
+<h2>Search Products</h2>
+<p>Search for a product by label using the search bar and clicking 'Submit'!</p>
+<form id="search-product-html" method='GET' action='/products'>
+    <label for="input-product_label-search">Search by Product Label: </label>
+    <input type="text" name="productLabelSearch" id="input-product_label-html-search">
+    
+    <input type="submit">
+    <a href='/products'><button>Reset</button></a>
+</form>

@@ -50,11 +50,12 @@ function addRowToTable(data) {
     employeeNametagCell.innerText = newRow.employee_nametag;
     employeePhoneCell.innerText = newRow.employee_phone;
 
-    deleteCell = document.createElement("button");
-    deleteCell.innerHTML = "Delete";
+    let deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
     deleteCell.onclick = function(){
-        deleteEmployee(newRow.employee_id);
+        deleteLocation(newRow.employee_id);
     };
+    deleteCell.appendChild(deleteButton);
 
     row.appendChild(deleteCell);
     row.appendChild(idCell);

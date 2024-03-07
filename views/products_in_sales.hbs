@@ -1,0 +1,56 @@
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<header><h1>Location Inventory</h1></header>
+<nav>
+    [[ 
+    <a href="/">Home</a>
+    |
+    <a href="employees">Employees</a>
+    |  
+    <a href="locations">Locations</a>
+    |  
+    <a href="employees_locations.html">Employees by Location</a>
+    |  
+    <a href="products_by_locations.html">Location Inventory</a>
+    |  
+    <a href="products">Products</a>
+    |  
+    <a href="customers.html">Customers</a>
+    |  
+    <a href="sales">Sales</a>
+    | 
+    <a href="products_in_sales">Products in Sales</a> 
+    ]]
+</nav>
+
+<br></br>
+
+{{!-- Create a table --}}
+<table id="products_in_sales-table">
+    <thead>
+        <tr>
+            {{!-- <th>delete</th> --}}
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+        {{#each data}}
+        {{!-- <tr data-value={{this.sale_id}}> --}}
+        <tr>
+            {{!-- <td><button onclick="deleteSale({{this.sale_id}})">Delete</button></td> --}}
+            <td>{{this.sid}}</td>
+            <td>{{this.pid}}</td>
+            <td>{{this.quantity}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<link rel="stylesheet" href="./css/style.css">
+{{!-- <script src="./js/delete_sale.js"></script> --}}

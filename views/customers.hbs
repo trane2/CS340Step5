@@ -1,0 +1,122 @@
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<header><h1>Customers</h1></header>
+<nav>
+    [[ 
+    <a href="/">Home</a>
+    |
+    <a href="employees">Employees</a>
+    |  
+    <a href="locations">Locations</a>
+    |  
+    <a href="employees_locations.html">Employees by Location</a>
+    |  
+    <a href="products_by_locations.html">Location Inventory</a>
+    |  
+    <a href="products.html">Products</a>
+    |  
+    <a href="customers">Customers</a>
+    |  
+    <a href="sales.html">Sales</a>
+    | 
+    <a href="sales_has_products.html">Products in Sales</a> 
+    ]]
+</nav>
+
+<br></br>
+
+{{!-- Create a table --}}
+<table id="customers-table">
+    <thead>
+        <tr>
+            <th>delete</th>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.customer_id}}>
+            <td><button onclick="deleteCustomer({{this.customer_id}})">Delete</button></td>
+            <td>{{this.customer_id}}</td>
+            <td>{{this.customer_name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.customer_phone}}</td>
+            <td>{{this.store_credit}}</td>
+            <td>{{this.total_purchases}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<link rel="stylesheet" href="./css/style.css">
+<script src="./js/delete_customer.js"></script>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Customer</h2>
+<p>To add a new customer, enter their information below and click 'Submit'!</p>
+<form id="add-customer-form-ajax">
+    <label for="input-customer_name-add">Customer Name: </label>
+    <input type="text" name="input-customer_name" id="input-customer_name">
+
+    <label for="input-customer_email-add">Customer Email: </label>
+    <input type="text" name="input-customer_email" id="input-customer_email">
+    
+    <label for="input-customer_phone-add">Customer Phone: </label>
+    <input type="text" name="input-customer_phone" id="input-customer_phone">
+
+    <label for="input-store_credit-add">Store Credit: </label>
+    <input type="number" name="input-store_credit" id="input-store_credit">
+
+    <label for="input-total_purchases-add">Total Purchases: </label>
+    <input type="number" name="input-total_purchases" id="input-total_purchases">
+
+    <input type="submit">
+</form>
+<script src="./js/add_customer.js"></script>
+
+{{!-- Form to update an employee's information --}}
+<h2>Update Customer</h2>
+<p>Select an customer from the drop down menu, input new information, and click 'Submit'!</p>
+<form id="update-customer-form-ajax">
+    <label for="input-customer_email-update">Customer Email: </label>
+    <select name="input-employee_email-update" id="customer-select">
+        <option value="test">Select a Customer</option>
+        {{#each data}}
+        <option value="{{this.customer_id}}">{{this.email}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-customer_name-update">Customer Name: </label>
+    <input type="text" name="input-customer_name-update" id="input-customer_name-update">
+    
+    <label for="input-email-update">Email: </label>
+    <input type="text" name="input-email-update" id="input-email-update">
+
+    <label for="input-customer_phone-update">Customer Phone: </label>
+    <input type="text" name="input-customer_phone-update" id="input-customer_phone-update">
+
+    <label for="input-store_credit-update">Store Credit: </label>
+    <input type="number" name="input-store_credit-update" id="input-store_credit-update">
+
+    <label for="input-total_purchases-update">Total Purchases: </label>
+    <input type="text" name="input-total_purchases-update" id="input-total_purchases-update">
+    <input type="submit">
+</form>
+<script src="./js/update_customer.js"></script>
+
+{{!-- Form to search an employee from table  --}}
+<h2>Search Customer</h2>
+<p>Search for a customer by entering their email in the search bar and clicking 'Submit'!</p>
+<form id="search-customer-html" method='GET' action='/customers'>
+    <label for="input-customer_email-search">Search by Customer Email: </label>
+    <input type="text" name="customerEmailSearch" id="input-customer_email-html-search">
+    
+    <input type="submit">
+    <a href='/employees'><button>Reset</button></a>
+</form>

@@ -1,0 +1,141 @@
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<header><h1>Sales</h1></header>
+<nav>
+    [[ 
+    <a href="/">Home</a>
+    |
+    <a href="employees">Employees</a>
+    |  
+    <a href="locations">Locations</a>
+    |  
+    <a href="employees_locations.html">Employees by Location</a>
+    |  
+    <a href="products_by_locations.html">Location Inventory</a>
+    |  
+    <a href="products">Products</a>
+    |  
+    <a href="customers.html">Customers</a>
+    |  
+    <a href="sales">Sales</a>
+    | 
+    <a href="sales_has_products.html">Products in Sales</a> 
+    ]]
+</nav>
+
+<br></br>
+
+{{!-- Create a table --}}
+<table id="sales-table">
+    <thead>
+        <tr>
+            <th>delete</th>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.sale_id}}>
+            <td><button onclick="deleteSale({{this.sale_id}})">Delete</button></td>
+            <td>{{this.sale_id}}</td>
+            <td>{{this.Location}}</td>
+            <td>{{this.Employee}}</td>
+            <td>{{this.Customer}}</td>
+            <td>{{this.sale_date}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<link rel="stylesheet" href="./css/style.css">
+<script src="./js/delete_sale.js"></script>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Sale</h2>
+<p>To add a new sale, enter its information below and click 'Submit'!</p>
+<form id="add-sale-form-ajax">
+    <label for="input-location">Homeworld: </label>
+    <select name="input-location" id="input-location-ajax">
+        <option value="">Select a Location</option>
+        {{#each locations}}
+        <option value="{{this.location_id}}">{{this.address_line}}</option>
+        {{/each}}
+    </select>
+
+    <select name="input-employee" id="input-employee-ajax">
+        <option value="">Select an Employee</option>
+        {{#each employees}}
+        <option value="{{this.employee_id}}">{{this.employee_nametag}}</option>
+        {{/each}}
+    </select>
+    
+    <select name="input-customer" id="input-customer-ajax">
+        <option value="">Select a Customer</option>
+        {{#each customers}}
+        <option value="{{this.customer_id}}">{{this.customer_name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-sale_date">Sale Date: </label>
+    <input type="datetime-local" name="input-sale_date" id="input-sale_date">
+
+    <input type="submit">
+</form>
+<script src="./js/add_sale.js"></script>
+
+{{!-- Form to update an employee's information --}}
+<h2>Update Sale</h2>
+<p>Select a sale id from the drop down menu, input new information, and click 'Submit'! (Search First Recommended!)</p>
+<form id="update-sale-form-ajax">
+    <label for="input-sale_id-update">Sale ID: </label>
+    <select name="input-sale_id-update" id="sale-select">
+        <option value="test">Select a Sale ID</option>
+        {{#each data}}
+        <option value="{{this.sale_id}}">{{this.sale_id}}</option>
+        {{/each}}
+    </select>
+
+    <select name="input-location-update" id="input-location-update">
+        <option value="">Select a Location</option>
+        {{#each locations}}
+        <option value="{{this.location_id}}">{{this.address_line}}</option>
+        {{/each}}
+    </select>
+
+    <select name="input-employee-update" id="input-employee-update">
+        <option value="">Select an Employee</option>
+        {{#each employees}}
+        <option value="{{this.employee_id}}">{{this.employee_nametag}}</option>
+        {{/each}}
+    </select>
+    
+    <select name="input-customer-update" id="input-customer-update">
+        <option value="">Select a Customer</option>
+        {{#each customers}}
+        <option value="{{this.customer_id}}">{{this.customer_name}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-sale_date-update">Sale Date: </label>
+    <input type="datetime-local" name="input-sale_date-update" id="input-sale_date-update">
+
+    <input type="submit">
+</form>
+<script src="./js/update_sale.js"></script>
+
+{{!-- Form to search an employee from table  --}}
+<h2>Search Sales</h2>
+<p>Search for a sale by date using the search bar and clicking 'Submit'!</p>
+<form id="search-sale-html" method='GET' action='/sales'>
+    <label for="input-sale_date-search">Search by Sale Date: </label>
+    <input type="date" name="saleDateSearch" id="input-sale_date-html-search">
+    
+    <input type="submit">
+    <a href='/sales'><button>Reset</button></a>
+</form>
