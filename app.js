@@ -1,4 +1,11 @@
 /*
+    Citation for the following code:
+    Date: 2/28/24
+    Adapted from the amazing work that has gone into the starter app resource
+    Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/
+*/
+
+/*
     SETUP
 */
 
@@ -21,15 +28,18 @@ app.set('view engine', '.hbs');
 
 
 
-
-
 /*
-    EMPLOYEES ROUTES
+    HOME ROUTE
 */
 app.get('/', function(req, res) {
     return res.render('index');
 });
 
+
+
+/*
+    EMPLOYEES ROUTES
+*/
 app.get('/employees', function(req, res) {
     let query1;
     if (req.query.employeeNametagSearch === undefined) {
@@ -108,6 +118,104 @@ app.put('/update-employee-ajax', function(req, res, next) {
             res.sendStatus(400);
         } else {
             db.pool.query(selectWorld, [employeeID], function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    });
+});
+
+
+
+
+
+/*
+    EMPLOYEES ROUTES
+*/
+app.get('/locations', function(req, res) {  
+    let query1 = "SELECT * FROM locations;";              
+    db.pool.query(query1, function(error, rows, fields){  
+        res.render('locations', {data: rows});                
+    })                                                    
+});
+
+app.post('/add-location-ajax', function(req, res) {
+    let data = req.body;
+
+    let sitePhone = parseInt(data.sitePhone);
+    if (isNaN(sitePhone)) {
+        sitePhone = 'NULL'
+    }
+
+    let wares = parseInt(data.wares);
+    if (isNaN(wares)) {
+        wares = 'NULL'
+    }
+
+    let postal = parseInt(data.postal);
+    if (isNaN(postal)) {
+        postal = 'NULL'
+    }
+
+    query1 = `INSERT INTO locations (wares_capacity, address_line, city, postal_code, site_phone) VALUES (${wares}, '${data.address}', '${data.city}', ${postal}, ${sitePhone});`;
+    db.pool.query(query1, function(error, rows, fields){
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+
+        } else {
+            query2 = `SELECT * FROM locations;`;
+            db.pool.query(query2, function(error, rows, fields){
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    console.log(rows);
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+app.delete('/delete-location-ajax', function(req, res, next) {
+    let data = req.body;
+    let locationID = parseInt(data.location_id);
+    let deleteLocation= `DELETE FROM locations WHERE location_id = ?;`;
+  
+    db.pool.query(deleteLocation, [locationID], function(error, rows, fields){
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    });
+});
+
+app.put('/update-location-ajax', function(req, res, next) {
+    let data = req.body;
+  
+    let locationID = parseInt(data.location_id);
+    let updatedWares = data.wares_capacity;
+    let updatedAddress = data.address_line;
+    let updatedCity = data.city;
+    let updatedPostal = parseInt(data.postal_code);
+    let updatedSitePhone = parseInt(data.site_phone);
+  
+    let queryUpdateLocation = `UPDATE locations SET wares_capacity = ?, address_line = ?, city = ?, postal_code = ?, site_phone = ? WHERE locations.location_id = ?`;
+    let selectLocation = `SELECT * FROM locations WHERE location_id = ?`
+
+    db.pool.query(queryUpdateLocation, [updatedWares, updatedAddress, updatedCity, updatedPostal, updatedSitePhone, locationID], function(error, rows, fields){
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            db.pool.query(selectLocation, [locationID], function(error, rows, fields) {
                 if (error) {
                     console.log(error);
                     res.sendStatus(400);

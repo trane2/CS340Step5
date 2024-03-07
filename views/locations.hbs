@@ -1,0 +1,127 @@
+<!-- 
+    Citation for the following code:
+    // Date: 2/28/24
+    // Adapted from the amazing work that has gone into the starter app resource
+    // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/
+-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<header><h1>Locations</h1></header>
+<nav>
+    [[ 
+    <a href="/">Home</a>
+    |
+    <a href="employees">Employees</a>
+    |  
+    <a href="locations">Locations</a>
+    |  
+    <a href="employees_locations.html">Employees by Location</a>
+    |  
+    <a href="products_by_locations.html">Location Inventory</a>
+    |  
+    <a href="products.html">Products</a>
+    |  
+    <a href="customers.html">Customers</a>
+    |  
+    <a href="sales.html">Sales</a>
+    | 
+    <a href="sales_has_products.html">Products in Sales</a> 
+    ]]
+</nav>
+<br></br>
+
+{{!-- Create a table --}}
+<table id="locations-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>delete</th>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the location_id, wares_capacity, address_line, city, postal_code, site_phone in order --}}
+        {{#each data}}
+        <tr data-value={{this.location_id}}>
+            <td><button onclick="deleteLocation({{this.location_id}})">Delete</button></td>
+            <td>{{this.location_id}}</td>
+            <td>{{this.wares_capacity}}</td>
+            <td>{{this.address_line}}</td>
+            <td>{{this.city}}</td>
+            <td>{{this.postal_code}}</td>
+            <td>{{this.site_phone}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<link rel="stylesheet" href="./css/style.css">
+<script src="./js/delete_location.js"></script>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Location</h2>
+<p>To add a new location, please enter their information below and click 'Submit'!</p>
+<form id="add-location-form-ajax">
+    <label for="input-wares">Wares Capacity: </label>
+    <input type="text" name="input-wares" id="input-wares">
+    
+    <label for="input-address">Address: </label>
+    <input type="text" name="input-address" id="input-address">
+
+    <label for="input-city">City: </label>
+    <input type="text" name="input-city" id="input-city">
+
+    <label for="input-postal">Postal Code: </label>
+    <input type="text" name="input-postal" id="input-postal">
+
+    <label for="input-site-phone">Site Phone: </label>
+    <input type="text" name="input-site-phone" id="input-site-phone">
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_location.js"></script>
+
+<h2>Update Location</h2>
+<p>To update a specific Location select its address from the drop-down menu on the left and fill in the fields.</p>
+<form id="update-location-form-ajax">
+
+    <label for="input-location">Full name: </label>
+    <select name="input-location" id="location-select">
+        <option value="test">Select a Location</option>
+        {{#each data}}
+        <option value="{{this.location_id}}">{{this.address_line}} {{this.city}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-wares">Wares Capacity: </label>
+    <input type="text" name="update-wares" id="update-wares">
+    
+    <label for="update-address">Address: </label>
+    <input type="text" name="update-address" id="update-address">
+
+    <label for="update-city">City: </label>
+    <input type="text" name="update-city" id="update-city">
+
+    <label for="update-postal">Postal Code: </label>
+    <input type="text" name="update-postal" id="update-postal">
+
+    <label for="update-site-phone">Site Phone: </label>
+    <input type="text" name="update-site-phone" id="update-site-phone">
+
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_location.js"></script>

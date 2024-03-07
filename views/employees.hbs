@@ -8,7 +8,7 @@
     |
     <a href="employees">Employees</a>
     |  
-    <a href="locations.html">Locations</a>
+    <a href="locations">Locations</a>
     |  
     <a href="employees_locations.html">Employees by Location</a>
     |  
@@ -30,6 +30,7 @@
 <table id="employees-table">
     <thead>
         <tr>
+            <th>delete</th>
             {{#each data.[0]}}
             <th>
                 {{@key}}
@@ -42,10 +43,10 @@
     <tbody>
         {{#each data}}
         <tr data-value={{this.employee_id}}>
+            <td><button onclick="deleteEmployee({{this.employee_id}})">Delete</button></td>
             <td>{{this.employee_id}}</td>
             <td>{{this.employee_nametag}}</td>
             <td>{{this.employee_phone}}</td>
-            <td><button onclick="deleteEmployee({{this.employee_id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -68,7 +69,7 @@
 <script src="./js/add_employee.js"></script>
 
 {{!-- Form to update an employee's information --}}
-<h2>Update an Employee's Phone</h2>
+<h2>Update Employee</h2>
 <p>Select an employee from the drop down menu, input new information, and click 'Submit'!</p>
 <form id="update-employee-form-ajax">
     <label for="input-employee_nametag-update">Employee Nametag: </label>
@@ -86,7 +87,7 @@
 <script src="./js/update_employee.js"></script>
 
 {{!-- Form to search an employee from table  --}}
-<h2>Search</h2>
+<h2>Search Employee</h2>
 <p>Search by an employee's nametag using the search bar and click 'Submit'!</p>
 <form id="search-employee-html" method='GET' action='/'>
     <label for="input-employee_nametag-search">Search by Employee Name: </label>

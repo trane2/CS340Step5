@@ -56,10 +56,10 @@ function addRowToTable(data) {
         deleteEmployee(newRow.employee_id);
     };
 
+    row.appendChild(deleteCell);
     row.appendChild(idCell);
     row.appendChild(employeeNametagCell);
     row.appendChild(employeePhoneCell);
-    row.appendChild(deleteCell);
 
     row.setAttribute('data-value', newRow.employee_id);
     
