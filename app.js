@@ -19,12 +19,18 @@ var exphbs = require('express-handlebars');
 app.engine('.hbs', engine({extname: ".hbs"})); 
 app.set('view engine', '.hbs');                
 
+
+
+
+
 /*
-    ROUTES
+    EMPLOYEES ROUTES
 */
 app.get('/', function(req, res) {
-    
+    return res.render('index');
+});
 
+app.get('/employees', function(req, res) {
     let query1;
     if (req.query.employeeNametagSearch === undefined) {
         query1 = "SELECT * FROM employees;";
@@ -35,7 +41,7 @@ app.get('/', function(req, res) {
 
     db.pool.query(query1, function(error, rows, fields){
         let employees = rows;
-        return res.render('index', {data: employees});
+        return res.render('employees', {data: employees});
     })
 });
 
@@ -94,7 +100,7 @@ app.put('/update-employee-ajax', function(req, res, next) {
     let employeePhone = data.employee_phone;
   
     let queryUpdateWorld = `UPDATE employees SET employee_phone = ? WHERE employees.employee_id = ?`;
-    let selectWorld = `SELECT * FROM employees WHERE employee_id = ?` // WHERE employee_nametag = ?`
+    let selectWorld = `SELECT * FROM employees WHERE employee_id = ?`
   
     db.pool.query(queryUpdateWorld, [employeePhone, employeeID], function(error, rows, fields) {
         if (error) {
