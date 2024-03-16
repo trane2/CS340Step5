@@ -29,9 +29,11 @@
     <thead>
         <tr>
             <th>delete</th>
-            <th>Employee Number</th>
-            <th>Nametage</th>
-            <th>delete</th>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
         </tr>
     </thead>
 

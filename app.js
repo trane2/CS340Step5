@@ -15,7 +15,7 @@ var app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
-PORT = 9124;
+PORT = 11385;
 
 // Database
 var db = require('./database/db-connector');
@@ -44,6 +44,7 @@ app.get('/employees', function(req, res) {
     let query1;
     if (req.query.employeeNametagSearch === undefined) {
         query1 = "SELECT * FROM employees;";
+        // query1 = "SELECT employee_id AS `Employee Number`, employee_nametag AS `Name`, employee_phone AS Phone FROM employees;";
     } else {
         console.log(req.query.employeeNametagSearch)
         query1 = `SELECT * FROM employees WHERE employee_nametag LIKE "${req.query.employeeNametagSearch}%"`;
@@ -51,6 +52,8 @@ app.get('/employees', function(req, res) {
 
     db.pool.query(query1, function(error, rows, fields){
         let employees = rows;
+        console.log(data);
+        console.log(employees);
         return res.render('employees', {data: employees});
     })
 });
@@ -643,8 +646,8 @@ app.put('/update-sale-ajax', function(req, res, next) {
     EMPLOYEES_LOCATIONS ROUTES
 */
 app.get('/employees_locations', function(req, res) {  
-    let query1 = "SELECT * FROM location_has_employees;";   
-    
+    //let query1 = "SELECT * FROM location_has_employees;";   
+    let query1 = "SELECT employee_nametag, location_id FROM employees INNER JOIN location_has_employees ON employees.employee_id = location_has_employees.eid INNER JOIN locations ON locations.location_id = location_has_employees.lid ORDER BY employee_id;";
     db.pool.query(query1, function(error, rows, fields){
         let results = rows;
         return res.render('employees_locations', {data: results});

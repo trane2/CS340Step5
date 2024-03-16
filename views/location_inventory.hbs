@@ -3,7 +3,6 @@
 
 <header><h1>Location Inventory</h1></header>
 <nav>
-    [[ 
       <a href="/">Home</a>
         |
       <a href="employees">Employees</a>
@@ -21,7 +20,6 @@
       <a href="sales">Sales</a>
         | 
       <a href="products_in_sales">Products in Sales</a> 
-      ]]
 </nav>
 
 <br></br>
@@ -31,11 +29,8 @@
     <thead>
         <tr>
             {{!-- <th>delete</th> --}}
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>Location</th>
+            <th>Product</th>
         </tr>
     </thead>
 

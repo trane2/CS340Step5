@@ -8,7 +8,6 @@
 
 <header><h1>Locations</h1></header>
 <nav>
-    [[ 
       <a href="/">Home</a>
         |
       <a href="employees">Employees</a>
@@ -26,7 +25,6 @@
       <a href="sales">Sales</a>
         | 
       <a href="products_in_sales">Products in Sales</a> 
-      ]]
 </nav>
 <br></br>
 
@@ -40,11 +38,12 @@
         know what each column means when the page renders --}}
         <tr>
             <th>delete</th>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>Location Number</th>
+            <th>Wares Capacity</th>
+            <th>Address Line</th>
+            <th>City</th>
+            <th>Postal Code</th>
+            <th>Phone</th>
         </tr>
     </thead>
 
@@ -73,19 +72,19 @@
 <p>To add a new location, please enter their information below and click 'Submit'!</p>
 <form id="add-location-form-ajax">
     <label for="input-wares">Wares Capacity: </label>
-    <input type="text" name="input-wares" id="input-wares">
+    <input type="text" name="input-wares" id="input-wares" required>
     
     <label for="input-address">Address: </label>
-    <input type="text" name="input-address" id="input-address">
+    <input type="text" name="input-address" id="input-address" required>
 
     <label for="input-city">City: </label>
-    <input type="text" name="input-city" id="input-city">
+    <input type="text" name="input-city" id="input-city" required>
 
     <label for="input-postal">Postal Code: </label>
-    <input type="text" name="input-postal" id="input-postal">
+    <input type="text" name="input-postal" id="input-postal" required>
 
     <label for="input-site-phone">Site Phone: </label>
-    <input type="text" name="input-site-phone" id="input-site-phone">
+    <input type="text" name="input-site-phone" id="input-site-phone" required>
 
     <input type="submit">
 </form>
@@ -106,19 +105,19 @@
     </select>
 
     <label for="update-wares">Wares Capacity: </label>
-    <input type="text" name="update-wares" id="update-wares">
+    <input type="text" name="update-wares" id="update-wares" required>
     
     <label for="update-address">Address: </label>
-    <input type="text" name="update-address" id="update-address">
+    <input type="text" name="update-address" id="update-address" required>
 
     <label for="update-city">City: </label>
-    <input type="text" name="update-city" id="update-city">
+    <input type="text" name="update-city" id="update-city" required>
 
     <label for="update-postal">Postal Code: </label>
-    <input type="text" name="update-postal" id="update-postal">
+    <input type="text" name="update-postal" id="update-postal" required>
 
     <label for="update-site-phone">Site Phone: </label>
-    <input type="text" name="update-site-phone" id="update-site-phone">
+    <input type="text" name="update-site-phone" id="update-site-phone" required>
 
     <input type="submit">
 

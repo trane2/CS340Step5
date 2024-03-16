@@ -1,0 +1,163 @@
+/*   ----- Imports  -----  */
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=EB+Garamond&display=swap');
+html {
+  /* border: 10px solid lightgreen; */
+  min-height: 100%;
+  background-color:rgb(137, 244, 244);
+
+}
+body {       /* Can alternatively define in html {}. <<- thats a lie btw html and body are different, 10/10 education */
+  /*background-image: url(images/big-sur-background.jpg);*/
+  /* background-size: cover;
+  background-attachment: fixed;
+  background-position: top left;
+  background-repeat: no-repeat; */
+  color:var(black);
+  font-family: 'EB Garamond', serif;
+  margin: 0vw 3vw;
+  padding: 1vw;
+  height: 95%;
+  display:flex; flex-direction:column; justify-content:center;
+}
+
+header {
+  background-color:rgba(144, 238, 144, 0.655);
+  color: black;
+  margin: 1vw 15vw;
+  padding: 1vw;
+  border:5px solid #527362;
+  display: flex;
+  justify-content: center;
+  font-family: 'Alfa Slab One', serif;
+}
+
+nav {
+  font-size: 18px;
+  margin: auto;
+}
+
+nav a {
+  display: inline-block;
+  background-color: #9FE2BF;
+  color: black;
+  text-align:center;
+  text-decoration: none;
+  flex-flow: row-wrap;
+  border: 3px solid #527362;
+  margin: auto;
+}
+
+nav a:hover {
+  display: inline-block;
+  background-color: rgb(22, 230, 253);
+  color: black;
+  text-align:center;
+  border: 1px dotted black;
+  padding: 1vw 1vw;
+  margin: auto;
+  font-size: 20px;
+}
+
+/*  ----- Table ----- */
+table {
+  border-collapse:collapse;
+  width: 50%;
+  display:flexbox; 
+  flex-direction:row; 
+  justify-content:center;
+  margin: auto;
+}
+caption {
+  border:2px solid black;  
+  color:black;
+  font-size:30px;
+  font-weight:bold;
+  padding:1% 0;
+
+}
+thead {
+  border-top: 4px solid black;
+  border-bottom:4px solid black;
+  font-size: 18px;
+}
+tbody {text-align:center;}
+tfoot {}
+tr td {
+  border-bottom:2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  padding: 2em;
+
+}
+tr th {
+  background-color:rgba(95, 204, 204, 0.555);
+  padding:1em;
+
+}
+td.currencyTable{
+  text-align:right;
+  font-style: italic;
+}
+tr {}
+  tr:nth-child(even) {}
+th {}
+td {}
+  td:nth-child(1) {
+    /* background-color: rgba(255, 0, 0, 0.548); */
+    /* display: flex; */
+    width: 1vw;
+  }
+  td:nth-child(2) {
+    width: 1vw;
+  }
+colgroup {}
+data {}
+datalist {}
+
+/*  ----- Form ----- */
+form {
+  /* display:flex; 
+  justify-content:center;
+  width: 25%; */
+  margin: auto;
+}
+fieldset {
+  /* border: 3px solid black;
+  margin: 1em 2em;
+  padding: 1vw;
+  background-color: black;
+  width: 100%; */
+}
+legend {
+  /* color: black;
+  font-size: 24px;
+  background-color: black;
+  border: 1px solid black; */
+}
+label {
+  /* display: block;
+  margin: 1vw; */
+}
+input, button, textarea, select {
+}
+
+table button{
+  background-color: rgb(255, 0, 0);
+}
+textarea{width:85%;}
+
+
+input {
+
+}
+/*
+select {}
+  optgroup {}
+  option {}
+textarea {}
+*/
+
+output {}
+meter {}
+progress {}
+

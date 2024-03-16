@@ -3,7 +3,6 @@
 
 <header><h1>Customers</h1></header>
 <nav>
-    [[ 
       <a href="/">Home</a>
         |
       <a href="employees">Employees</a>
@@ -21,7 +20,6 @@
       <a href="sales">Sales</a>
         | 
       <a href="products_in_sales">Products in Sales</a> 
-      ]]
 </nav>
 
 <br></br>
@@ -31,11 +29,11 @@
     <thead>
         <tr>
             <th>delete</th>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>Customer Number</th>
+            <th>eMail</th>
+            <th>Phone</th>
+            <th>Store Credit</th>
+            <th>Total Purchases</th>
         </tr>
     </thead>
 
@@ -71,10 +69,10 @@
     <input type="text" name="input-customer_phone" id="input-customer_phone">
 
     <label for="input-store_credit-add">Store Credit: </label>
-    <input type="number" name="input-store_credit" id="input-store_credit">
+    <input type="number" name="input-store_credit" id="input-store_credit" required>
 
     <label for="input-total_purchases-add">Total Purchases: </label>
-    <input type="number" name="input-total_purchases" id="input-total_purchases">
+    <input type="number" name="input-total_purchases" id="input-total_purchases" required>
 
     <input type="submit">
 </form>
@@ -102,10 +100,10 @@
     <input type="text" name="input-customer_phone-update" id="input-customer_phone-update">
 
     <label for="input-store_credit-update">Store Credit: </label>
-    <input type="number" name="input-store_credit-update" id="input-store_credit-update">
+    <input type="number" name="input-store_credit-update" id="input-store_credit-update" required>
 
     <label for="input-total_purchases-update">Total Purchases: </label>
-    <input type="text" name="input-total_purchases-update" id="input-total_purchases-update">
+    <input type="text" name="input-total_purchases-update" id="input-total_purchases-update" required>
     <input type="submit">
 </form>
 <script src="./js/update_customer.js"></script>
