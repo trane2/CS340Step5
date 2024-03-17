@@ -1,6 +1,21 @@
+{{!--
+
+  Citation for the following module:
+  // Date: 3/16/2024
+  // Adapted from the amazing work that has gone into the starter app resource
+  // Contributors include George Kochera, Dr. Michael Curry and Prof. Danielle M. Safonte
+  // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+--}}
+
+
+
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+
+
+{{!-- Sales Heading and Navigation Bar --}}
 <header><h1>Sales</h1></header>
 <nav>
       <a href="/">Home</a>
@@ -21,11 +36,13 @@
         | 
       <a href="products_in_sales">Products in Sales</a> 
 </nav>
-
 <br></br>
 
-{{!-- Create a table --}}
+
+
+{{!-- Create Sales table --}}
 <table id="sales-table">
+    {{!-- Header Section --}}
     <thead>
         <tr>
             <th>delete</th>
@@ -37,7 +54,7 @@
         </tr>
     </thead>
 
-    {{!-- Body section --}}
+    {{!-- Body Section --}}
     <tbody>
         {{#each data}}
         <tr data-value={{this.sale_id}}>
@@ -54,7 +71,9 @@
 <link rel="stylesheet" href="./css/style.css">
 <script src="./js/delete_sale.js"></script>
 
-{{!-- Form to add a record to the table  --}}
+
+
+{{!-- Form to add a sale record to the table  --}}
 <h2>Add Sale</h2>
 <p>To add a new sale, enter its information below and click 'Submit'!</p>
 <form id="add-sale-form-ajax">
@@ -87,7 +106,9 @@
 </form>
 <script src="./js/add_sale.js"></script>
 
-{{!-- Form to update an employee's information --}}
+
+
+{{!-- Form to update a sales's information --}}
 <h2>Update Sale</h2>
 <p>Select a sale id from the drop down menu, input new information, and click 'Submit'! (Search First Recommended!)</p>
 <form id="update-sale-form-ajax">
@@ -127,7 +148,9 @@
 </form>
 <script src="./js/update_sale.js"></script>
 
-{{!-- Form to search an employee from table  --}}
+
+
+{{!-- Form to search a sale by date from table --}}
 <h2>Search Sales</h2>
 <p>Search for a sale by date using the search bar and clicking 'Submit'!</p>
 <form id="search-sale-html" method='GET' action='/sales'>

@@ -1,11 +1,21 @@
-<!-- 
-    Citation for the following code:
-    // Date: 2/28/24
-    // Adapted from the amazing work that has gone into the starter app resource
-    // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/
--->
+{{!--
+
+  Citation for the following module:
+  // Date: 3/16/2024
+  // Adapted from the amazing work that has gone into the starter app resource
+  // Contributors include George Kochera, Dr. Michael Curry and Prof. Danielle M. Safonte
+  // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+--}}
+
+
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+
+
+{{!-- Locations Heading and Navigation Bar --}}
 <header><h1>Locations</h1></header>
 <nav>
       <a href="/">Home</a>
@@ -28,14 +38,12 @@
 </nav>
 <br></br>
 
-{{!-- Create a table --}}
+
+
+{{!-- Create Locations Table --}}
 <table id="locations-table">
-
-    {{!-- Header section --}}
+    {{!-- Header Section --}}
     <thead>
-
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
         <tr>
             <th>delete</th>
             <th>Location Number</th>
@@ -47,10 +55,8 @@
         </tr>
     </thead>
 
-    {{!-- Body section --}}
+    {{!-- Body Section --}}
     <tbody>
-
-        {{!-- For each row, print the location_id, wares_capacity, address_line, city, postal_code, site_phone in order --}}
         {{#each data}}
         <tr data-value={{this.location_id}}>
             <td><button onclick="deleteLocation({{this.location_id}})">Delete</button></td>
@@ -67,7 +73,9 @@
 <link rel="stylesheet" href="./css/style.css">
 <script src="./js/delete_location.js"></script>
 
-{{!-- Form to add a record to the table  --}}
+
+
+{{!-- Form to add a location record to the table  --}}
 <h2>Add Location</h2>
 <p>To add a new location, please enter their information below and click 'Submit'!</p>
 <form id="add-location-form-ajax">
@@ -88,10 +96,11 @@
 
     <input type="submit">
 </form>
-
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_location.js"></script>
 
+
+
+{{!-- Form to update a locations's information --}}
 <h2>Update Location</h2>
 <p>To update a specific Location select its address from the drop-down menu on the left and fill in the fields.</p>
 <form id="update-location-form-ajax">
@@ -120,7 +129,5 @@
     <input type="text" name="update-site-phone" id="update-site-phone" required>
 
     <input type="submit">
-
 </form>
-
 <script src="./js/update_location.js"></script>

@@ -1,6 +1,21 @@
+{{!--
+
+  Citation for the following module:
+  // Date: 3/16/2024
+  // Adapted from the amazing work that has gone into the starter app resource
+  // Contributors include George Kochera, Dr. Michael Curry and Prof. Danielle M. Safonte
+  // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+--}}
+
+
+
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+
+
+{{!-- Customers Heading and Navigation bar --}}
 <header><h1>Customers</h1></header>
 <nav>
       <a href="/">Home</a>
@@ -21,29 +36,30 @@
         | 
       <a href="products_in_sales">Products in Sales</a> 
 </nav>
-
 <br></br>
 
-{{!-- Create a table --}}
+
+
+{{!-- Create Customers Table --}}
 <table id="customers-table">
+    {{!-- Header Section --}}
     <thead>
         <tr>
-            <th>delete</th>
-            <th>Customer Number</th>
-            <th>eMail</th>
-            <th>Phone</th>
+            <th>Delete</th>
+            <th>Customer ID</th>
+            <th>Customer Email</th>
+            <th>Customer Phone</th>
             <th>Store Credit</th>
             <th>Total Purchases</th>
         </tr>
     </thead>
 
-    {{!-- Body section --}}
+    {{!-- Body Section --}}
     <tbody>
         {{#each data}}
         <tr data-value={{this.customer_id}}>
             <td><button onclick="deleteCustomer({{this.customer_id}})">Delete</button></td>
             <td>{{this.customer_id}}</td>
-            <td>{{this.customer_name}}</td>
             <td>{{this.email}}</td>
             <td>{{this.customer_phone}}</td>
             <td>{{this.store_credit}}</td>
@@ -55,7 +71,9 @@
 <link rel="stylesheet" href="./css/style.css">
 <script src="./js/delete_customer.js"></script>
 
-{{!-- Form to add a record to the table  --}}
+
+
+{{!-- Form to add a customer record to the table  --}}
 <h2>Add Customer</h2>
 <p>To add a new customer, enter their information below and click 'Submit'!</p>
 <form id="add-customer-form-ajax">
@@ -78,7 +96,9 @@
 </form>
 <script src="./js/add_customer.js"></script>
 
-{{!-- Form to update an employee's information --}}
+
+
+{{!-- Form to update a customers's information --}}
 <h2>Update Customer</h2>
 <p>Select an customer from the drop down menu, input new information, and click 'Submit'!</p>
 <form id="update-customer-form-ajax">
@@ -108,7 +128,9 @@
 </form>
 <script src="./js/update_customer.js"></script>
 
-{{!-- Form to search an employee from table  --}}
+
+
+{{!-- Form to search a customer from table --}}
 <h2>Search Customer</h2>
 <p>Search for a customer by entering their email in the search bar and clicking 'Submit'!</p>
 <form id="search-customer-html" method='GET' action='/customers'>

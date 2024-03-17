@@ -1,6 +1,21 @@
+{{!--
+
+  Citation for the following module:
+  // Date: 3/16/2024
+  // Adapted from the amazing work that has gone into the starter app resource
+  // Contributors include George Kochera, Dr. Michael Curry and Prof. Danielle M. Safonte
+  // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+--}}
+
+
+
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+
+
+{{!-- Products Heading and Navigation Bar --}}
 <header><h1>Products</h1></header>
 <nav>
       <a href="/">Home</a>
@@ -21,14 +36,16 @@
         | 
       <a href="products_in_sales">Products in Sales</a> 
 </nav>
-
 <br></br>
 
-{{!-- Create a table --}}
+
+
+{{!-- Create Products Table --}}
 <table id="products-table">
+    {{!-- Header Section --}}
     <thead>
         <tr>
-            <th>delete</th>
+            <th>Delete</th>
             <th>Product ID</th>
             <th>Price</th>
             <th>Label</th>
@@ -36,7 +53,7 @@
         </tr>
     </thead>
 
-    {{!-- Body section --}}
+    {{!-- Body Section --}}
     <tbody>
         {{#each data}}
         <tr data-value={{this.product_id}}>
@@ -52,7 +69,9 @@
 <link rel="stylesheet" href="./css/style.css">
 <script src="./js/delete_product.js"></script>
 
-{{!-- Form to add a record to the table  --}}
+
+
+{{!-- Form to add a product record to the table --}}
 <h2>Add Product</h2>
 <p>To add a new product, enter its information below and click 'Submit'!</p>
 <form id="add-product-form-ajax">
@@ -69,7 +88,9 @@
 </form>
 <script src="./js/add_product.js"></script>
 
-{{!-- Form to update an employee's information --}}
+
+
+{{!-- Form to update a products's information --}}
 <h2>Update Product</h2>
 <p>Select a product from the drop down menu, input new information, and click 'Submit'!</p>
 <form id="update-product-form-ajax">
@@ -94,7 +115,9 @@
 </form>
 <script src="./js/update_product.js"></script>
 
-{{!-- Form to search an employee from table  --}}
+
+
+{{!-- Form to search a product by label from table --}}
 <h2>Search Products</h2>
 <p>Search for a product by label using the search bar and clicking 'Submit'!</p>
 <form id="search-product-html" method='GET' action='/products'>

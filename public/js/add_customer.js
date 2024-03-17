@@ -1,34 +1,32 @@
 /*
-    Citation for the following code:
-    Date: 2/28/24
-    Adapted from the amazing work that has gone into the starter app resource
-    Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/
+    Citation for the following module:
+    // Date: 3/16/2024
+    // Adapted from the amazing work that has gone into the starter app resource
+    // Contributors include George Kochera, Dr. Michael Curry and Prof. Danielle M. Safonte
+    // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 */
 
-// Get the objects we need to modify
 let addCustomerForm = document.getElementById('add-customer-form-ajax');
 
-// Modify the objects we need
+// Submit function to add customer
 addCustomerForm.addEventListener("submit", function (e) {
-    
-    // Prevent the form from submitting
     e.preventDefault();
 
-    // Get form fields we need to get data from
+    // Get form fields
     let inputCustomerName = document.getElementById("input-customer_name");
     let inputEmail = document.getElementById("input-customer_email");
     let inputCustomerPhone = document.getElementById("input-customer_phone");
     let inputStoreCredit = document.getElementById("input-store_credit");
     let inputTotalPurchases = document.getElementById("input-total_purchases");
 
-    // Get the values from the form fields
+    // Get values from the form fields
     let customerNameValue = inputCustomerName.value;
     let emailValue = inputEmail.value;
     let customerPhoneValue = inputCustomerPhone.value;
     let storeCreditValue = inputStoreCredit.value;
     let totalPurchasesValue = inputTotalPurchases.value;
 
-    // Put our data we want to send in a javascript object
+    // Put our data in a javascript object
     let data = {
         customer_name: customerNameValue,
         email: emailValue,
@@ -42,45 +40,37 @@ addCustomerForm.addEventListener("submit", function (e) {
     xhttp.open("POST", "/add-customer-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
-    // Tell our AJAX request how to resolve
+    // Tell AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
-            // Add the new data to the table
+            // Add the new data to the table and clear fields
             addRowToTable(xhttp.response);
-
-            // Clear the input fields for another transaction
             inputCustomerName.value = '';
             inputEmail.value = '';
             inputCustomerPhone.value = '' ;
             inputStoreCredit.value = '';
             inputTotalPurchases.value = '';
-        }
-        else if (xhttp.readyState == 4 && xhttp.status != 200) {
+
+        } else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
         }
     }
 
-    // Send the request and wait for the response
+    // Send the request
     xhttp.send(JSON.stringify(data));
 })
 
 
-// Creates a single row from an Object representing a single record from 
-// bsg_people
-addRowToTable = (data) => {
 
-    // Get a reference to the current table on the page and clear it out.
+// Add customer entry if successful addition
+function addRowToTable(data) {
     let currentTable = document.getElementById("customers-table");
 
-    // Get the location where we should insert the new row (end of table)
-    let newRowIndex = currentTable.rows.length;
-
-    // Get a reference to the new row from the database query (last object)
+    // Get a reference to the new row from the database query
     let parsedData = JSON.parse(data);
     let newRow = parsedData[parsedData.length - 1]
 
-    // Create a row and 7 cells
+    // Create cells
     let row = document.createElement("TR");
     let deleteCell = document.createElement("TD");
     let idCell = document.createElement("TD");
@@ -90,14 +80,15 @@ addRowToTable = (data) => {
     let creditCell = document.createElement("TD");
     let purchasesCell = document.createElement("TD");
 
-    // Fill the cells with correct data
+    // Create delete button
     let deleteButton = document.createElement("button");
     deleteButton.innerHTML = "Delete";
-    deleteCell.onclick = function(){
+    deleteCell.onclick = function() {
         deleteCustomer(newRow.customer_id);
     };
     deleteCell.appendChild(deleteButton);
 
+    // Fill cells with data
     idCell.innerText = newRow.customer_id;
     nameCell.innerText = newRow.customer_name;
     emailCell.innerText = newRow.email;
@@ -120,6 +111,7 @@ addRowToTable = (data) => {
     // Add the row to the table
     currentTable.appendChild(row);
 
+    // Add option to dropdown menu
     let selectMenu = document.getElementById("customer-select");
     let option = document.createElement("option");
     option.text = newRow.email

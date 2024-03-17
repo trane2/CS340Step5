@@ -52,8 +52,8 @@ app.get('/employees', function(req, res) {
 
     db.pool.query(query1, function(error, rows, fields){
         let employees = rows;
-        console.log(data);
-        console.log(employees);
+        // console.log(data);
+        // console.log(employees);
         return res.render('employees', {data: employees});
     })
 });

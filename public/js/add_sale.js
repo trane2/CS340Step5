@@ -1,32 +1,30 @@
 /*
-    Citation for the following code:
-    Date: 2/28/24
-    Adapted from the amazing work that has gone into the starter app resource
-    Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/
+    Citation for the following module:
+    // Date: 3/16/2024
+    // Adapted from the amazing work that has gone into the starter app resource
+    // Contributors include George Kochera, Dr. Michael Curry and Prof. Danielle M. Safonte
+    // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 */
 
-// Get the objects we need to modify
 let addSaleForm = document.getElementById('add-sale-form-ajax');
 
-// Modify the objects we need
+// Submit function to add sale
 addSaleForm.addEventListener("submit", function (e) {
-    
-    // Prevent the form from submitting
     e.preventDefault();
 
-    // Get form fields we need to get data from
+    // Get form fields
     let inputLocation = document.getElementById("input-location-ajax");
     let inputEmployee = document.getElementById("input-employee-ajax");
     let inputCustomer = document.getElementById("input-customer-ajax");
     let inputSaleDate = document.getElementById("input-sale_date");
 
-    // Get the values from the form fields
+    // Get the values from form fields
     let locationID = inputLocation.value;
     let employeeID = inputEmployee.value;
     let customerID = inputCustomer.value;
     let saleDateValue = inputSaleDate.value;
 
-    // Put our data we want to send in a javascript object
+    // Put our data in a javascript object
     let data = {
         lid: locationID,
         eid: employeeID,
@@ -42,36 +40,26 @@ addSaleForm.addEventListener("submit", function (e) {
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-
-            // Add the new data to the table
+            // Add the new data to the table and clear fields
             addRowToTable(xhttp.response);
-
-            // Clear the input fields for another transaction
             inputLocation.value = '';
             inputEmployee.value = '';
             inputCustomer.value = '';
             inputSaleDate.value = '';
-        }
-        else if (xhttp.readyState == 4 && xhttp.status != 200) {
+        } else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
         }
     }
 
     // Send the request and wait for the response
     xhttp.send(JSON.stringify(data));
-
 })
 
 
-// Creates a single row from an Object representing a single record from 
-// bsg_people
+
+// Add sale entry if successful addition
 addRowToTable = (data) => {
-
-    // Get a reference to the current table on the page and clear it out.
     let currentTable = document.getElementById("sales-table");
-
-    // Get the location where we should insert the new row (end of table)
-    let newRowIndex = currentTable.rows.length;
 
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
