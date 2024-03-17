@@ -6,29 +6,32 @@
     // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 */
 
-let addEmployeesLocationsForm = document.getElementById('add-employees-locations-form-ajax');
+let addProductsInSalesForm = document.getElementById('add-products-in-sales-form-ajax');
 
 // Submit function to add employee
-addEmployeesLocationsForm.addEventListener("submit", function (e) {
+addProductsInSalesForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
-     // Get form fields
-    let inputEmployeeID = document.getElementById("input-employee");
-    let inputLocationID = document.getElementById("input-location");
+    // Get form fields
+    let inputSaleID = document.getElementById("input-sale");
+    let inputProduct = document.getElementById("input-product");
+    let inputQuantity = document.getElementById("input-quantity");
 
     // Get values from the form fields
-    let employeeIDvalue = inputEmployeeID.value;
-    let locationIDvalue = inputLocationID.value;
+    let saleIDvalue = inputSaleID.value;
+    let productIDvalue = inputProduct.value;
+    let quantityValue = inputQuantity.value;
 
     // Put our data in a javascript object
     let data = {
-        employee_id: employeeIDvalue,
-        location_id: locationIDvalue,
+        sale_id: saleIDvalue,
+        product_id: productIDvalue,
+        quantity: quantityValue
     }
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-employees-locations-ajax", true);
+    xhttp.open("POST", "/add-products_in_sales-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell AJAX request how to resolve
@@ -36,8 +39,9 @@ addEmployeesLocationsForm.addEventListener("submit", function (e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             // Add the new data to the table and clear fields           
             addRowToTable(xhttp.response);
-            inputEmployeeID.value = '';
-            inputLocationID.value = '';
+            inputSaleID.value = '';
+            inputProduct.value = '';
+            inputQuantity.value = '';
 
         } else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -52,7 +56,7 @@ addEmployeesLocationsForm.addEventListener("submit", function (e) {
 
 // Add entry if successful addition
 function addRowToTable(data) {
-    let currentTable = document.getElementById("employees_locations-table");
+    let currentTable = document.getElementById("location_inventory-table");
 
     // Get a reference to the new row from the database query
     let parsedData = JSON.parse(data);
@@ -60,29 +64,32 @@ function addRowToTable(data) {
 
     // Create cells
     let row = document.createElement("TR");
-    let employee = document.createElement("TD");
-    let location = document.createElement("TD");
+    let saleID = document.createElement("TD");
+    let product = document.createElement("TD");
+    let quantity = document.createElement("TD");
     let deleteCell = document.createElement("TD");
 
     // Create delete button
     let deleteButton = document.createElement("button");
     deleteButton.innerHTML = "Delete";
     deleteCell.onclick = function() {
-        deleteEmployeesLocations(newRow.elid);
+        deleteProductsInSales(newRow.spid);
     };
     deleteCell.appendChild(deleteButton);
 
     // Fill cells with data
-    employee.innerText = newRow.eid;
-    location.innerText = newRow.lid;
+    saleID.innerText = newRow.sid;
+    product.innerText = newRow.pid;
+    quantity.innerText = newRow.quantity;
 
     // // Add the cells to the row
     row.appendChild(deleteCell);
-    row.appendChild(employee);
-    row.appendChild(location);
+    row.appendChild(saleID);
+    row.appendChild(product);
+    row.appendChild(quantity);
 
-    // // Add a row attribute so the deleteRow function can find a newly added row
-    row.setAttribute('data-value', newRow.elid);
+    // Add a row attribute so the deleteRow function can find a newly added row
+    row.setAttribute('data-value', newRow.spid);
     
     // // Add the row to the table
     currentTable.appendChild(row);

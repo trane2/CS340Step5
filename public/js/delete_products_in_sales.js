@@ -1,0 +1,3 @@
+function deleteSale(spid) {
+    return;
+}

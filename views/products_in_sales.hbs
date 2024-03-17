@@ -1,7 +1,22 @@
+{{!--
+
+  Citation for the following module:
+  // Date: 3/16/2024
+  // Adapted from the amazing work that has gone into the starter app resource
+  // Contributors include George Kochera, Dr. Michael Curry and Prof. Danielle M. Safonte
+  // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+--}}
+
+
+
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-<header><h1>Location Inventory</h1></header>
+
+
+{{!-- Products in Sales Heading and Navigation bar --}}
+<header><h1>Products in Sales</h1></header>
 <nav>
       <a href="/">Home</a>
         |
@@ -21,32 +36,89 @@
         | 
       <a href="products_in_sales">Products in Sales</a> 
 </nav>
-
 <br></br>
 
-{{!-- Create a table --}}
+
+
+{{!-- Create Products in Sales Table --}}
 <table id="products_in_sales-table">
+  {{!-- Header Section --}}
     <thead>
         <tr>
-            {{!-- <th>delete</th> --}}
+            <th>Delete</th>
             <th>Sale ID</th>
-            <th>Product ID</th>
+            <th>Product</th>
             <th>Quantity</th>
         </tr>
     </thead>
 
-    {{!-- Body section --}}
+    {{!-- Body Section --}}
     <tbody>
         {{#each data}}
-        {{!-- <tr data-value={{this.sale_id}}> --}}
+        <tr data-value={{this.spid}}>
         <tr>
-            {{!-- <td><button onclick="deleteSale({{this.sale_id}})">Delete</button></td> --}}
-            <td>{{this.sid}}</td>
-            <td>{{this.pid}}</td>
+            <td><button onclick="deleteSale({{this.sale_id}})">Delete</button></td>
+            <td>{{this.sale_id}}</td>
+            <td>{{this.label}}</td>
             <td>{{this.quantity}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 <link rel="stylesheet" href="./css/style.css">
-{{!-- <script src="./js/delete_sale.js"></script> --}}
+<script src="./js/delete_products_in_sales.js"></script>
+
+
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Product to Sale</h2>
+<p>To add a product to a sale, select the options from the two drop down menus, enter a quantity greater than 0, and click 'Submit'!</p>
+<form id="add-products-in-sales-form-ajax">
+    <select name="input-sale" id="input-sale">
+        <option value="">Select a Sale</option>
+        {{#each sales}}
+        <option value="{{this.sale_id}}">{{this.sale_id}}</option>
+        {{/each}}
+    </select> 
+
+    <select name="input-product" id="input-product">
+        <option value="">Select a Product</option>
+        {{#each products}}
+        <option value="{{this.product_id}}">{{this.label}}</option>
+        {{/each}}
+    </select>
+
+    <label for="quantity-add">Quantity: </label>
+    <input type="number" name="input-quantity" id="input-quantity" required>
+
+    <input type="submit">
+</form>
+<script src="./js/add_products_in_sales.js"></script>
+
+
+
+{{!-- Form to UPDATE a record to the table  --}}
+<h2>Update Sale Information</h2>
+<p>To update a sale's information, select the options from the two drop down menus, modify the quantity, and click 'Submit'!</p>
+<form id="update-location_inventory-form-ajax">
+    <select name="input-sale" id="input-sale">
+        <option value="">Select a Sale</option>
+        {{#each sales}}
+        <option value="{{this.sale_id}}">{{this.sale_id}}</option>
+        {{/each}}
+    </select> 
+
+    <select name="input-product" id="input-product">
+        <option value="">Select a Product</option>
+        {{#each products}}
+        <option value="{{this.product_id}}">{{this.label}}</option>
+        {{/each}}
+    </select>
+
+    <label for="quantity-add">Quantity: </label>
+    <input type="number" name="input-quantity" id="input-quantity" required>
+
+    <input type="submit">
+</form>
+<script src="./js/update_products_in_sales.js"></script>

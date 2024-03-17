@@ -643,13 +643,14 @@ app.put('/update-sale-ajax', function(req, res, next) {
 /*
     EMPLOYEES_LOCATIONS ROUTES
 */
-app.get('/employees_locations', function(req, res) {  
-    let query0 = "SELECT * FROM location_has_employees;";   
+app.get('/employees_locations', function(req, res) { 
+    let query0 = "SELECT elid, employee_nametag, address_line FROM employees INNER JOIN location_has_employees ON employees.employee_id = location_has_employees.eid INNER JOIN locations ON locations.location_id = location_has_employees.lid ORDER BY employee_id;";    
     let query1 = "SELECT * FROM employees;";
     let query2 = "SELECT * FROM locations;";
 
     db.pool.query(query0, function(error, rows, fields){
         let entries = rows
+        console.log(entries);
         db.pool.query(query1, function(error, rows, fields){
             let employees = rows;
             db.pool.query(query2, (error, rows, fields) => {
@@ -712,16 +713,78 @@ app.delete('/delete_employees_locations-ajax', function(req, res, next) {
 });
 
 
+
+
+
 /*
     LOCATION_INVENTORY ROUTES
 */
 app.get('/location_inventory', function(req, res) {  
-    let query1 = "SELECT * FROM location_has_products;";   
-    
-    db.pool.query(query1, function(error, rows, fields){
-        let results = rows;
-        return res.render('location_inventory', {data: results});
-    })
+    let query0 = "SELECT plid, address_line, label FROM locations INNER JOIN location_has_products ON locations.location_id = location_has_products.lid INNER JOIN products ON products.product_id = location_has_products.pid ORDER BY address_line;";    
+    let query1 = "SELECT * FROM products;";
+    let query2 = "SELECT * FROM locations;";
+
+    db.pool.query(query0, function(error, rows, fields){
+        let entries = rows
+        db.pool.query(query1, function(error, rows, fields){
+            let products = rows;
+            db.pool.query(query2, (error, rows, fields) => {
+                let locations = rows;
+                return res.render('location_inventory', {data: entries, products: products, locations: locations});
+            });
+        });
+    });
+});
+
+app.post('/add-location-inventory-ajax', function(req, res) {
+    let data = req.body;
+
+    let location_id = data.location_id;
+    if (isNaN(location_id)) {
+        location_id = 'NULL';
+    } else {
+        location_id = Number(location_id);
+    }
+
+    let product_id = data.product_id;
+    if (isNaN(product_id)) {
+        product_id = 'NULL';
+    } else {
+        product_id = Number(product_id);
+    }
+
+    let query1 = `INSERT INTO location_has_products (lid, pid) VALUES (${location_id}, '${product_id}')`;
+    db.pool.query(query1, function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            let query2 = `SELECT * FROM location_has_products;`;
+            db.pool.query(query2, function(error, rows, fields){
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            });
+        }
+    });
+});
+
+app.delete('/delete_location-inventory-ajax', function(req, res, next) {
+    let data = req.body;
+    let plid = parseInt(data.plid);
+    let deleteEntryQuery = `DELETE FROM location_has_products WHERE plid = ?`;
+
+    db.pool.query(deleteEntryQuery, [plid], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    });
 });
 
 
@@ -732,15 +795,66 @@ app.get('/location_inventory', function(req, res) {
     EMPLOYEES_LOCATIONS ROUTES
 */
 app.get('/products_in_sales', function(req, res) {  
-    let query1 = "SELECT * FROM sale_has_products;";   
-    
-    db.pool.query(query1, function(error, rows, fields){
-        let results = rows;
-        return res.render('products_in_sales', {data: results});
-    })
+    let query0 = "SELECT spid, sale_id, label, quantity FROM sales INNER JOIN sale_has_products ON sales.sale_id = sale_has_products.sid INNER JOIN products ON products.product_id = sale_has_products.pid ORDER BY sale_id;";     
+    let query1 = "SELECT * FROM sales;";
+    let query2 = "SELECT * FROM products;";
+
+    db.pool.query(query0, function(error, rows, fields){
+        let entries = rows
+        console.log(entries)
+        db.pool.query(query1, function(error, rows, fields){
+            let sales = rows;
+            db.pool.query(query2, (error, rows, fields) => {
+                let products = rows;
+                return res.render('products_in_sales', {data: entries, sales: sales, products: products});
+            });
+        });
+    });
 });
 
+app.post('/add-products_in_sales-ajax', function(req, res) {
+    let data = req.body;
 
+    let sale_id = data.sale_id;
+    if (isNaN(sale_id)) {
+        sale_id = 'NULL';
+    } else {
+        sale_id = Number(sale_id);
+    }
+
+    let product_id = data.product_id;
+    if (isNaN(product_id)) {
+        product_id = 'NULL';
+    } else {
+        product_id = Number(product_id);
+    }
+
+    let quantity = data.quantity;
+    if (isNaN(quantity)) {
+        quantity = 'NULL';
+    } else {
+        quantity = Number(quantity);
+    }
+
+    let query1 = `INSERT INTO sale_has_products (sid, pid, quantity) VALUES (${sale_id}, ${product_id}, ${quantity})`;
+    db.pool.query(query1, function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            let query2 = `SELECT * FROM sale_has_products;`;
+            db.pool.query(query2, function(error, rows, fields){
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    console.log(rows);
+                    res.send(rows);
+                }
+            });
+        }
+    });
+});
 
 
 

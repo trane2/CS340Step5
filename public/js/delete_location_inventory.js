@@ -7,10 +7,10 @@
 */
 
 // Delete customer from customer_id
-function deleteEmployeesLocations(elid) {
-    let link = '/delete_employees_locations-ajax';
+function deleteLocationInventory(plid) {
+    let link = '/delete_location-inventory-ajax';
     let data = {
-        elid: elid
+        plid: plid
     };
   
     // Connect deletion success to deleteCustomerRow
@@ -20,17 +20,17 @@ function deleteEmployeesLocations(elid) {
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         success: function(result) {
-            deleteEmployeesLocationsRow(elid);
+            deleteLocationInventoryRow(plid);
         }
     });
 }
 
 // Iterates through customer table rows
 // Removes customer row from table with matching customer_id
-function deleteEmployeesLocationsRow(elid){
-    let table = document.getElementById("employees_locations-table");
+function deleteLocationInventoryRow(plid){
+    let table = document.getElementById("location_inventory-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
-        if (table.rows[i].getAttribute("data-value") == elid) {
+        if (table.rows[i].getAttribute("data-value") == plid) {
             table.deleteRow(i);
             break;
         }
