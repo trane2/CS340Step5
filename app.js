@@ -1,8 +1,9 @@
 /*
-    Citation for the following code:
-    Date: 2/28/24
-    Adapted from the amazing work that has gone into the starter app resource
-    Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/
+    Citation for the following application:
+    // Date: 3/16/2024
+    // Adapted from the amazing work that has gone into the starter app resource
+    // Contributors include George Kochera, Dr. Michael Curry and Prof. Danielle M. Safonte
+    // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
 */
 
 /*
@@ -44,7 +45,6 @@ app.get('/employees', function(req, res) {
     let query1;
     if (req.query.employeeNametagSearch === undefined) {
         query1 = "SELECT * FROM employees;";
-        // query1 = "SELECT employee_id AS `Employee Number`, employee_nametag AS `Name`, employee_phone AS Phone FROM employees;";
     } else {
         console.log(req.query.employeeNametagSearch)
         query1 = `SELECT * FROM employees WHERE employee_nametag LIKE "${req.query.employeeNametagSearch}%"`;
@@ -52,8 +52,6 @@ app.get('/employees', function(req, res) {
 
     db.pool.query(query1, function(error, rows, fields){
         let employees = rows;
-        // console.log(data);
-        // console.log(employees);
         return res.render('employees', {data: employees});
     })
 });
@@ -646,15 +644,72 @@ app.put('/update-sale-ajax', function(req, res, next) {
     EMPLOYEES_LOCATIONS ROUTES
 */
 app.get('/employees_locations', function(req, res) {  
-    //let query1 = "SELECT * FROM location_has_employees;";   
-    let query1 = "SELECT employee_nametag, location_id FROM employees INNER JOIN location_has_employees ON employees.employee_id = location_has_employees.eid INNER JOIN locations ON locations.location_id = location_has_employees.lid ORDER BY employee_id;";
-    db.pool.query(query1, function(error, rows, fields){
-        let results = rows;
-        return res.render('employees_locations', {data: results});
-    })
+    let query0 = "SELECT * FROM location_has_employees;";   
+    let query1 = "SELECT * FROM employees;";
+    let query2 = "SELECT * FROM locations;";
+
+    db.pool.query(query0, function(error, rows, fields){
+        let entries = rows
+        db.pool.query(query1, function(error, rows, fields){
+            let employees = rows;
+            db.pool.query(query2, (error, rows, fields) => {
+                let locations = rows;
+                return res.render('employees_locations', {data: entries, employees: employees, locations: locations});
+            });
+        });
+    });
 });
 
+app.post('/add-employees-locations-ajax', function(req, res) {
+    let data = req.body;
 
+    let employee_id = data.employee_id;
+    if (isNaN(employee_id)) {
+        employee_id = 'NULL';
+    } else {
+        employee_id = Number(employee_id);
+    }
+
+    let location_id = data.location_id;
+    if (isNaN(location_id)) {
+        location_id = 'NULL';
+    } else {
+        location_id = Number(location_id);
+    }
+
+    let query1 = `INSERT INTO location_has_employees (lid, eid) VALUES (${location_id}, '${employee_id}')`;
+    db.pool.query(query1, function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            let query2 = `SELECT * FROM location_has_employees;`;
+            db.pool.query(query2, function(error, rows, fields){
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            });
+        }
+    });
+});
+
+app.delete('/delete_employees_locations-ajax', function(req, res, next) {
+    let data = req.body;
+    let elid = parseInt(data.elid);
+    let deleteEntryQuery = `DELETE FROM location_has_employees WHERE elid = ?`;
+
+    db.pool.query(deleteEntryQuery, [elid], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    });
+});
 
 
 /*
@@ -684,6 +739,10 @@ app.get('/products_in_sales', function(req, res) {
         return res.render('products_in_sales', {data: results});
     })
 });
+
+
+
+
 
 /*
     LISTENER

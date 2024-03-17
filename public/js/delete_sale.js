@@ -30,7 +30,7 @@ function deleteSale(sale_id) {
 function deleteSaleRow(sale_id){
     let table = document.getElementById("sales-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
-        if (table.rows[i].getAttribute("data-value") == saleID) {
+        if (table.rows[i].getAttribute("data-value") == sale_id) {
             table.deleteRow(i);
             deleteSalesDropDownMenu(sale_id);
             break;

@@ -30,7 +30,7 @@ function deleteLocation(location_id) {
 function deleteLocationRow(location_id){
     let table = document.getElementById("locations-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
-        if (table.rows[i].getAttribute("data-value") == locationID) {
+        if (table.rows[i].getAttribute("data-value") == location_id) {
             table.deleteRow(i);
             deleteEmployeesDropDownMenu(location_id);
             break;

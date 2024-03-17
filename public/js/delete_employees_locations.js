@@ -7,10 +7,10 @@
 */
 
 // Delete customer from customer_id
-function deleteCustomer(customer_id) {
-    let link = '/delete-customer-ajax';
+function deleteEmployeesLocations(elid) {
+    let link = '/delete_employees_locations-ajax';
     let data = {
-        customer_id: customer_id
+        elid: elid
     };
   
     // Connect deletion success to deleteCustomerRow
@@ -20,31 +20,31 @@ function deleteCustomer(customer_id) {
         data: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         success: function(result) {
-            deleteCustomerRow(customer_id);
+            deleteEmployeesLocationsRow(elid);
         }
     });
 }
 
 // Iterates through customer table rows
 // Removes customer row from table with matching customer_id
-function deleteCustomerRow(customer_id){
-    let table = document.getElementById("customers-table");
+function deleteEmployeesLocationsRow(elid){
+    let table = document.getElementById("employees_locations-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
-        if (table.rows[i].getAttribute("data-value") == customer_id) {
+        if (table.rows[i].getAttribute("data-value") == elid) {
             table.deleteRow(i);
-            deleteCustomersDropDownMenu(customer_id);
+            // deleteCustomersDropDownMenu(elid);
             break;
         }
     }
 }
 
-// Removes customer option from drop down menu
-function deleteCustomersDropDownMenu(customer_id) {
-    let selectMenu = document.getElementById("customer-select");
-    for (let i = 0; i < selectMenu.length; i++) {
-        if (Number(selectMenu.options[i].value) === Number(customer_id)) {
-            selectMenu[i].remove();
-            break;
-        } 
-    }
-}
+// // Removes customer option from drop down menu
+// function deleteCustomersDropDownMenu(customer_id) {
+//     let selectMenu = document.getElementById("customer-select");
+//     for (let i = 0; i < selectMenu.length; i++) {
+//         if (Number(selectMenu.options[i].value) === Number(customer_id)) {
+//             selectMenu[i].remove();
+//             break;
+//         } 
+//     }
+// }

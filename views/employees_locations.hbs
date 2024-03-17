@@ -1,3 +1,15 @@
+{{!--
+
+  Citation for the following module:
+  // Date: 3/16/2024
+  // Adapted from the amazing work that has gone into the starter app resource
+  // Contributors include George Kochera, Dr. Michael Curry and Prof. Danielle M. Safonte
+  // Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
+--}}
+
+
+
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -21,34 +33,55 @@
         | 
       <a href="products_in_sales">Products in Sales</a> 
 </nav>
-
 <br></br>
+
+
 
 {{!-- Create a table --}}
 <table id="employees_locations-table">
+    {{!-- Header Section --}}
     <thead>
         <tr>
-            {{!-- <th>delete</th> --}}
-            <th>
-                Employee
-            </th>
-            <th>
-                Location
-            </th>
+            <th>Delete</th>
+            <th>Employee</th>
+            <th>Location</th>
         </tr>
     </thead>
 
-    {{!-- Body section --}}
+    {{!-- Body Section --}}
     <tbody>
         {{#each data}}
-        {{!-- <tr data-value={{this.sale_id}}> --}}
-        <tr>
-            {{!-- <td><button onclick="deleteSale({{this.sale_id}})">Delete</button></td> --}}
-            <td>{{this.employee_nametag}}</td>
-            <td>{{this.location_id}}</td>
+        <tr data-value={{this.elid}}>
+            <td><button onclick="deleteEmployeesLocations({{this.elid}})">Delete</button></td>
+            <td>{{this.eid}}</td>
+            <td>{{this.lid}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_employees_locations.js"></script>
 <link rel="stylesheet" href="./css/style.css">
-{{!-- <script src="./js/delete_sale.js"></script> --}}
+
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Add Employee by Location Entry</h2>
+<p>To add a new employee by location entry, select the options from the two drop down menus and click 'Submit'!</p>
+<form id="add-employees-locations-form-ajax">
+    <select name="input-employee" id="input-employee">
+        <option value="">Select an Employee</option>
+        {{#each employees}}
+        <option value="{{this.employee_id}}">{{this.employee_nametag}}</option>
+        {{/each}}
+    </select> 
+
+    <select name="input-location" id="input-location">
+        <option value="">Select a Location</option>
+        {{#each locations}}
+        <option value="{{this.location_id}}">{{this.address_line}}</option>
+        {{/each}}
+    </select>
+
+    <input type="submit">
+</form>
+<script src="./js/add_employees_locations.js"></script>
