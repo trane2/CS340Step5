@@ -56,7 +56,7 @@ addProductsInSalesForm.addEventListener("submit", function (e) {
 
 // Add entry if successful addition
 function addRowToTable(data) {
-    let currentTable = document.getElementById("location_inventory-table");
+    let currentTable = document.getElementById("products_in_sales-table");
 
     // Get a reference to the new row from the database query
     let parsedData = JSON.parse(data);
@@ -91,6 +91,6 @@ function addRowToTable(data) {
     // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', newRow.spid);
     
-    // // Add the row to the table
+    // Add the row to the table
     currentTable.appendChild(row);
 }

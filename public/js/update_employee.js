@@ -43,6 +43,7 @@ updateEmployeeForm.addEventListener("submit", function (e) {
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             // Update row
+            console.log("SUCCESS")
             updateEmployeeRow(xhttp.response, employeeID);
 
         } else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -57,9 +58,9 @@ updateEmployeeForm.addEventListener("submit", function (e) {
 
 
 // Update employee row if successful
-function updateEmployeeRow(data, employee_id){
+function updateEmployeeRow(rows, employee_id){
     // Get data and table
-    let parsedData = JSON.parse(data);
+    let parsedData = JSON.parse(rows);
     let data = parsedData[0];
     let table = document.getElementById("employees-table");
     

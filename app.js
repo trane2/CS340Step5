@@ -795,7 +795,7 @@ app.delete('/delete_location-inventory-ajax', function(req, res, next) {
     EMPLOYEES_LOCATIONS ROUTES
 */
 app.get('/products_in_sales', function(req, res) {  
-    let query0 = "SELECT spid, sale_id, label, quantity FROM sales INNER JOIN sale_has_products ON sales.sale_id = sale_has_products.sid INNER JOIN products ON products.product_id = sale_has_products.pid ORDER BY sale_id;";     
+    let query0 = "SELECT spid, sale_id, quantity, label FROM sale_has_products INNER JOIN sales ON sale_has_products.sid = sales.sale_id INNER JOIN products ON products.product_id = sale_has_products.pid;";     
     let query1 = "SELECT * FROM sales;";
     let query2 = "SELECT * FROM products;";
 
@@ -855,6 +855,23 @@ app.post('/add-products_in_sales-ajax', function(req, res) {
         }
     });
 });
+
+app.delete('/delete-products_in_sales-ajax', function(req, res, next) {
+    let data = req.body;
+    let spid = parseInt(data.spid);
+    let deleteEntryQuery = `DELETE FROM sale_has_products WHERE spid = ?`;
+
+    db.pool.query(deleteEntryQuery, [spid], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    });
+});
+
+
 
 
 

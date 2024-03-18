@@ -66,9 +66,9 @@ updatePersonForm.addEventListener("submit", function (e) {
 
 
 // Update location row if successful
-function updateLocationRow(data, locationID){
+function updateLocationRow(rows, locationID){
     // Get data and table
-    let parsedData = JSON.parse(data);
+    let parsedData = JSON.parse(rows);
     let data = parsedData[0]
     let table = document.getElementById("locations-table");
 

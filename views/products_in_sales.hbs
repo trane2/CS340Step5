@@ -56,8 +56,7 @@
     <tbody>
         {{#each data}}
         <tr data-value={{this.spid}}>
-        <tr>
-            <td><button onclick="deleteSale({{this.sale_id}})">Delete</button></td>
+            <td><button onclick="deleteProductsInSales({{this.spid}})">Delete</button></td>
             <td>{{this.sale_id}}</td>
             <td>{{this.label}}</td>
             <td>{{this.quantity}}</td>
@@ -102,14 +101,14 @@
 <h2>Update Sale Information</h2>
 <p>To update a sale's information, select the options from the two drop down menus, modify the quantity, and click 'Submit'!</p>
 <form id="update-location_inventory-form-ajax">
-    <select name="input-sale" id="input-sale">
+    <select name="update-sale" id="update-sale">
         <option value="">Select a Sale</option>
         {{#each sales}}
         <option value="{{this.sale_id}}">{{this.sale_id}}</option>
         {{/each}}
     </select> 
 
-    <select name="input-product" id="input-product">
+    <select name="update-product" id="update-product">
         <option value="">Select a Product</option>
         {{#each products}}
         <option value="{{this.product_id}}">{{this.label}}</option>
@@ -117,7 +116,7 @@
     </select>
 
     <label for="quantity-add">Quantity: </label>
-    <input type="number" name="input-quantity" id="input-quantity" required>
+    <input type="number" name="update-quantity" id="update-quantity" required>
 
     <input type="submit">
 </form>

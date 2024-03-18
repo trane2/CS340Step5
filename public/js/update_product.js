@@ -59,9 +59,9 @@ updateProductForm.addEventListener("submit", function (e) {
 
 
 // Update product row if successful
-function updateProductRow(data, product_id){
+function updateProductRow(rows, product_id){
     // Get data and table
-    let parsedData = JSON.parse(data);
+    let parsedData = JSON.parse(rows);
     let data = parsedData[0];
     let table = document.getElementById("products-table");
     
