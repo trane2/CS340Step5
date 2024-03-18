@@ -103,10 +103,10 @@
     </select>
 
     <label for="input-price-update">Price: </label>
-    <input type="number" step="0.01" name="input-price-update" id="input-price-update" required>
+    <input type="number" step="0.01" name="input-price-update" id="input-price-update" pattern="^\d*\.?\d*$" required>
 
     <label for="input-label-update">Label: </label>
-    <input type="text" name="input-label-update" id="input-label-update" required>
+    <input type="text" name="input-label-update" id="input-label-update" pattern="[\s\S]*" required>
     
     <label for="input-designer-update">Designer: </label>
     <input type="text" name="input-designer-update" id="input-designer-update">

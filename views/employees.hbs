@@ -77,7 +77,7 @@
     <input type="text" name="input-employee_nametag" id="input-employee_nametag">
     
     <label for="input-employee_phone-add">Employee Phone: </label>
-    <input type="text" name="input-employee_phone" id="input-employee_phone" required>
+    <input type="text" name="input-employee_phone" id="input-employee_phone"pattern="[0-9]{0,12}" required>
 
     <input type="submit">
 </form>
@@ -101,7 +101,7 @@
     <input type="text" name="input-employee_nametag-update" id="input-employee_nametag-update">
 
     <label for="input-employee_phone-update">Employee Phone: </label>
-    <input type="number" name="input-employee_phone-update" id="input-employee_phone-update" required>
+    <input type="number" name="input-employee_phone-update" id="input-employee_phone-update" pattern="[0-9]{0,12}" required>
     <input type="submit">
 </form>
 <script src="./js/update_employee.js"></script>

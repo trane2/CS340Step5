@@ -83,16 +83,16 @@
     <input type="text" name="input-customer_name" id="input-customer_name">
 
     <label for="input-customer_email-add">Customer Email: </label>
-    <input type="text" name="input-customer_email" id="input-customer_email">
+    <input type="text" name="input-customer_email" id="input-customer_email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
     
     <label for="input-customer_phone-add">Customer Phone: </label>
-    <input type="text" name="input-customer_phone" id="input-customer_phone">
+    <input type="text" name="input-customer_phone" id="input-customer_phone" pattern="[0-9]{0,12}">
 
     <label for="input-store_credit-add">Store Credit: </label>
-    <input type="number" name="input-store_credit" id="input-store_credit" required>
+    <input type="number" name="input-store_credit" id="input-store_credit" required pattern="[0-9]{0,12}" required>
 
     <label for="input-total_purchases-add">Total Purchases: </label>
-    <input type="number" name="input-total_purchases" id="input-total_purchases" required>
+    <input type="number" name="input-total_purchases" id="input-total_purchases" required pattern="[0-9]{0,12}" required>
 
     <input type="submit">
 </form>
@@ -116,16 +116,16 @@
     <input type="text" name="input-customer_name-update" id="input-customer_name-update">
     
     <label for="input-email-update">Email: </label>
-    <input type="text" name="input-email-update" id="input-email-update">
+    <input type="text" name="input-email-update" id="input-email-update" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
 
     <label for="input-customer_phone-update">Customer Phone: </label>
-    <input type="text" name="input-customer_phone-update" id="input-customer_phone-update">
+    <input type="text" name="input-customer_phone-update" id="input-customer_phone-update" pattern="[0-9]{0,12}">
 
     <label for="input-store_credit-update">Store Credit: </label>
-    <input type="number" name="input-store_credit-update" id="input-store_credit-update" required>
+    <input type="number" name="input-store_credit-update" id="input-store_credit-update" required pattern="[0-9]{0,12}" required>
 
     <label for="input-total_purchases-update">Total Purchases: </label>
-    <input type="text" name="input-total_purchases-update" id="input-total_purchases-update" required>
+    <input type="text" name="input-total_purchases-update" id="input-total_purchases-update" required pattern="[0-9]{0,12}" required>
     <input type="submit">
 </form>
 <script src="./js/update_customer.js"></script>

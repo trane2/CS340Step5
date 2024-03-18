@@ -80,19 +80,19 @@
 <p>To add a new location, please enter their information below and click 'Submit'!</p>
 <form id="add-location-form-ajax">
     <label for="input-wares">Wares Capacity: </label>
-    <input type="text" name="input-wares" id="input-wares" required>
+    <input type="text" name="input-wares" id="input-wares" pattern="[0-9]{1,12}" required>
     
     <label for="input-address">Address: </label>
-    <input type="text" name="input-address" id="input-address" required>
+    <input type="text" name="input-address" id="input-address" pattern="[\s\S]*" required>
 
     <label for="input-city">City: </label>
-    <input type="text" name="input-city" id="input-city" required>
+    <input type="text" name="input-city" id="input-city" pattern="[\s\S]*" required>
 
     <label for="input-postal">Postal Code: </label>
-    <input type="text" name="input-postal" id="input-postal" required>
+    <input type="text" name="input-postal" id="input-postal" pattern="[0-9]{5,9}" required>
 
     <label for="input-site-phone">Site Phone: </label>
-    <input type="text" name="input-site-phone" id="input-site-phone" required>
+    <input type="text" name="input-site-phone" id="input-site-phone" pattern="[0-9]{7,12}" required>
 
     <input type="submit">
 </form>
@@ -114,19 +114,19 @@
     </select>
 
     <label for="update-wares">Wares Capacity: </label>
-    <input type="text" name="update-wares" id="update-wares" required>
+    <input type="text" name="update-wares" id="update-wares" pattern="[0-9]{1,12}" required>
     
     <label for="update-address">Address: </label>
-    <input type="text" name="update-address" id="update-address" required>
+    <input type="text" name="update-address" id="update-address" pattern="[\s\S]*" required>
 
     <label for="update-city">City: </label>
-    <input type="text" name="update-city" id="update-city" required>
+    <input type="text" name="update-city" id="update-city" pattern="[\s\S]*" required>
 
     <label for="update-postal">Postal Code: </label>
-    <input type="text" name="update-postal" id="update-postal" required>
+    <input type="text" name="update-postal" id="update-postal" pattern="[0-9]{5,9}" required>
 
     <label for="update-site-phone">Site Phone: </label>
-    <input type="text" name="update-site-phone" id="update-site-phone" required>
+    <input type="text" name="update-site-phone" id="update-site-phone" pattern="[0-9]{7,12}" required>
 
     <input type="submit">
 </form>
