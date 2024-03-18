@@ -73,8 +73,8 @@ function addRowToTable(data) {
     deleteCell.appendChild(deleteButton);
 
     // Fill cells with data
-    location.innerText = newRow.lid;
-    product.innerText = newRow.pid;
+    location.innerText = newRow.address_line;
+    product.innerText = newRow.label;
 
     // // Add the cells to the row
     row.appendChild(deleteCell);

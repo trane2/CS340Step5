@@ -76,13 +76,13 @@ function updateSaleRow(rows, sale_id){
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
             let tdPrice = updateRowIndex.getElementsByTagName("td")[2];
-            tdPrice.innerHTML = data.Location; 
+            tdPrice.innerHTML = data.address_line; 
 
             let tdLabel = updateRowIndex.getElementsByTagName("td")[3];
-            tdLabel.innerHTML = data.Employee; 
+            tdLabel.innerHTML = data.employee_nametag; 
 
             let tdDesigner = updateRowIndex.getElementsByTagName("td")[4];
-            tdDesigner.innerHTML = data.Customer; 
+            tdDesigner.innerHTML = data.email;
 
             let tdDesigner2 = updateRowIndex.getElementsByTagName("td")[5];
             tdDesigner2.innerHTML = data.sale_date; 

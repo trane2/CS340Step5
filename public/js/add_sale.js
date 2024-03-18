@@ -63,52 +63,48 @@ addRowToTable = (data) => {
 
     // Get a reference to the new row from the database query (last object)
     let parsedData = JSON.parse(data);
-    console.log(parsedData)
-    // let newRow = parsedData[parsedData.length - 1]
+    let newRow = parsedData[parsedData.length - 1]
 
-    // // Create a row and 7 cells
-    // let row = document.createElement("TR");
-    // let deleteCell = document.createElement("TD");
-    // let idCell = document.createElement("TD");
-    // let waresCell = document.createElement("TD");
-    // let addressCell = document.createElement("TD");
-    // let cityCell = document.createElement("TD");
-    // let postalCell = document.createElement("TD");
-    // let sitePhoneCell = document.createElement("TD");
+    // Create a row and 7 cells
+    let row = document.createElement("TR");
+    let deleteCell = document.createElement("TD");
+    let idCell = document.createElement("TD");
+    let locationCell = document.createElement("TD");
+    let employeeCell = document.createElement("TD");
+    let customerCell = document.createElement("TD");
+    let dateCell = document.createElement("TD");
 
-    // // Fill the cells with correct data
-    // let deleteButton = document.createElement("button");
-    // deleteButton.innerHTML = "Delete";
-    // deleteCell.onclick = function(){
-    //     deleteLocation(newRow.location_id);
-    // };
-    // deleteCell.appendChild(deleteButton);
+    // Fill the cells with correct data
+    let deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteCell.onclick = function(){
+        deleteSale(newRow.sale_id);
+    };
+    deleteCell.appendChild(deleteButton);
 
-    // idCell.innerText = newRow.location_id;
-    // waresCell.innerText = newRow.wares_capacity;
-    // addressCell.innerText = newRow.address_line;
-    // cityCell.innerText = newRow.city;
-    // postalCell.innerText = newRow.postal_code;
-    // sitePhoneCell.innerText = newRow.site_phone;
+    idCell.innerText = newRow.sale_id;
+    locationCell.innerText = newRow.address_line;
+    employeeCell.innerText = newRow.employee_nametag;
+    customerCell.innerText = newRow.email;
+    dateCell.innerText = newRow.sale_date;
 
-    // // Add the cells to the row
-    // row.appendChild(deleteCell);
-    // row.appendChild(idCell);
-    // row.appendChild(waresCell);
-    // row.appendChild(addressCell);
-    // row.appendChild(cityCell);
-    // row.appendChild(postalCell);
-    // row.appendChild(sitePhoneCell);
+    // Add the cells to the row
+    row.appendChild(deleteCell);
+    row.appendChild(idCell);
+    row.appendChild(locationCell);
+    row.appendChild(employeeCell);
+    row.appendChild(customerCell);
+    row.appendChild(dateCell);
     
-    // // Add a row attribute so the deleteRow function can find a newly added row
-    // row.setAttribute('data-value', newRow.location_id);
+    // Add a row attribute so the deleteRow function can find a newly added row
+    row.setAttribute('data-value', newRow.sale_id);
 
-    // // Add the row to the table
-    // currentTable.appendChild(row);
+    // Add the row to the table
+    currentTable.appendChild(row);
 
-    // let selectMenu = document.getElementById("location-select");
-    // let option = document.createElement("option");
-    // option.text = newRow.address_line + ' ' +  newRow.city;
-    // option.value = newRow.location_id;
-    // selectMenu.add(option);
+    let selectMenu = document.getElementById("sale-select");
+    let option = document.createElement("option");
+    option.text = newRow.sale_id;
+    option.value = newRow.sale_id;
+    selectMenu.add(option);
 }

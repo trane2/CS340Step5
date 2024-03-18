@@ -78,8 +78,8 @@ function addRowToTable(data) {
     deleteCell.appendChild(deleteButton);
 
     // Fill cells with data
-    saleID.innerText = newRow.sid;
-    product.innerText = newRow.pid;
+    saleID.innerText = newRow.sale_id;
+    product.innerText = newRow.label;
     quantity.innerText = newRow.quantity;
 
     // // Add the cells to the row

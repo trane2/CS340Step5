@@ -73,8 +73,8 @@ function addRowToTable(data) {
     deleteCell.appendChild(deleteButton);
 
     // Fill cells with data
-    employee.innerText = newRow.eid;
-    location.innerText = newRow.lid;
+    employee.innerText = newRow.employee_nametag;
+    location.innerText = newRow.address_line;
 
     // // Add the cells to the row
     row.appendChild(deleteCell);
@@ -83,7 +83,7 @@ function addRowToTable(data) {
 
     // // Add a row attribute so the deleteRow function can find a newly added row
     row.setAttribute('data-value', newRow.elid);
-    
+
     // // Add the row to the table
     currentTable.appendChild(row);
 }

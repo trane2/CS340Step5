@@ -45,7 +45,7 @@
     {{!-- Header Section --}}
     <thead>
         <tr>
-            <th>delete</th>
+            <th>Delete</th>
             <th>Sale ID</th>
             <th>Location</th>
             <th>Employee</th>
@@ -60,9 +60,9 @@
         <tr data-value={{this.sale_id}}>
             <td><button onclick="deleteSale({{this.sale_id}})">Delete</button></td>
             <td>{{this.sale_id}}</td>
-            <td>{{this.Location}}</td>
-            <td>{{this.Employee}}</td>
-            <td>{{this.Customer}}</td>
+            <td>{{this.address_line}}</td>
+            <td>{{this.employee_nametag}}</td>
+            <td>{{this.email}}</td>
             <td>{{this.sale_date}}</td>
         </tr>
         {{/each}}
@@ -77,7 +77,6 @@
 <h2>Add Sale</h2>
 <p>To add a new sale, enter its information below and click 'Submit'!</p>
 <form id="add-sale-form-ajax">
-    <label for="input-location">Homeworld: </label>
     <select name="input-location" id="input-location-ajax">
         <option value="">Select a Location</option>
         {{#each locations}}
@@ -95,7 +94,7 @@
     <select name="input-customer" id="input-customer-ajax">
         <option value="">Select a Customer</option>
         {{#each customers}}
-        <option value="{{this.customer_id}}">{{this.customer_name}}</option>
+        <option value="{{this.customer_id}}">{{this.email}}</option>
         {{/each}}
     </select>
 
@@ -112,7 +111,6 @@
 <h2>Update Sale</h2>
 <p>Select a sale id from the drop down menu, input new information, and click 'Submit'! (Search First Recommended!)</p>
 <form id="update-sale-form-ajax">
-    <label for="input-sale_id-update">Sale ID: </label>
     <select name="input-sale_id-update" id="sale-select">
         <option value="test">Select a Sale ID</option>
         {{#each data}}
@@ -137,7 +135,7 @@
     <select name="input-customer-update" id="input-customer-update">
         <option value="">Select a Customer</option>
         {{#each customers}}
-        <option value="{{this.customer_id}}">{{this.customer_name}}</option>
+        <option value="{{this.customer_id}}">{{this.email}}</option>
         {{/each}}
     </select>
     

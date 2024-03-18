@@ -454,52 +454,28 @@ app.put('/update-product-ajax', function(req, res, next) {
 app.get('/sales', function(req, res) {
     let query1;
     if (req.query.saleDateSearch === undefined) {
-        query1 = "SELECT sale_id, lid AS Location, eid AS Employee, cid AS Customer, sale_date FROM sales";
+        query1 = "SELECT sale_id, address_line, employee_nametag, email, sale_date FROM sales INNER JOIN locations ON sales.lid = locations.location_id INNER JOIN employees ON sales.eid = employees.employee_id INNER JOIN customers ON sales.cid = customers.customer_id ORDER BY sale_id;";
     } else {
-        query1 = `SELECT sale_id, lid AS Location, eid AS Employee, cid AS Customer, sale_date FROM sales WHERE sale_date LIKE "${req.query.saleDateSearch}%"`;
+        query1 = `SELECT sale_id, address_line, employee_nametag, email, sale_date FROM sales INNER JOIN locations ON sales.lid = locations.location_id INNER JOIN employees ON sales.eid = employees.employee_id INNER JOIN customers ON sales.cid = customers.customer_id WHERE sale_date LIKE "${req.query.saleDateSearch}%"`;
     }
 
     let query2 = "SELECT * FROM locations;";
     let query3 = "SELECT * FROM employees;";
     let query4 = "SELECT * FROM customers;";
-
     db.pool.query(query1, function(error, rows, fields){
-        let sales = rows;
-
-        db.pool.query(query2, (error, rows, fields) => {
+        let entries = rows
+        console.log(entries);
+        db.pool.query(query2, function(error, rows, fields){
             let locations = rows;
-            let locationsMap = {}
-            locations.map(location => {
-                let id = parseInt(location.location_id);
-                locationsMap[id] = location["address_line"];
-            })
-
             db.pool.query(query3, (error, rows, fields) => {
                 let employees = rows;
-                let employeesMap = {}
-                employees.map(employee => {
-                    let id = parseInt(employee.employee_id);
-                    employeesMap[id] = employee["employee_nametag"];
-                })
-
                 db.pool.query(query4, (error, rows, fields) => {
                     let customers = rows;
-                    let customersMap = {}
-                    customers.map(customer => {
-                        let id = parseInt(customer.customer_id);
-                        customersMap[id] = customer["customer_name"];
-                    })
-
-                    // Overwrite the homeworld ID with the name of the planet in the people object
-                    sales = sales.map(sale => {
-                        return Object.assign(sale, {Location: locationsMap[sale.Location], Employee: employeesMap[sale.Employee], Customer: customersMap[sale.Customer]})
-                    })
-
-                    return res.render('sales', {data: sales, locations: locations, employees: employees, customers: customers});
-                })
-            })
-        })
-    })
+                    return res.render('sales', {data: entries, locations: locations, employees: employees, customers: customers});
+                });
+            });
+        });
+    });
 });
 
 app.post('/add-sale-ajax', function(req, res) {
@@ -535,7 +511,7 @@ app.post('/add-sale-ajax', function(req, res) {
             console.log(error);
             res.sendStatus(400);
         } else {
-            let query2 = `sale_id, lid AS Location, eid AS Employee, cid AS Customer, sale_date FROM sales LEFT JOIN locations ON sales.lid = locations.location_id LEFT JOIN employees ON sales.eid = employees.employee_id LEFT JOIN customers ON sales.cid = customers.customer_id`;
+            let query2 = `SELECT sale_id, address_line, employee_nametag, email, sale_date FROM sales INNER JOIN locations ON sales.lid = locations.location_id INNER JOIN employees ON sales.eid = employees.employee_id INNER JOIN customers ON sales.cid = customers.customer_id;`;
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400
@@ -580,7 +556,7 @@ app.put('/update-sale-ajax', function(req, res, next) {
     let saleDate = data.sale_date
   
     let queryUpdateProduct = `UPDATE sales SET lid = ?, eid = ?, cid = ?, sale_date = ? WHERE sales.sale_id = ?`;
-    let selectProduct = `SELECT * FROM sales WHERE sale_id = ?`
+    let selectProduct = `SELECT sale_id, address_line, employee_nametag, email, sale_date FROM sales INNER JOIN locations ON sales.lid = locations.location_id INNER JOIN employees ON sales.eid = employees.employee_id INNER JOIN customers ON sales.cid = customers.customer_id WHERE sale_id = ?`;
   
     db.pool.query(queryUpdateProduct, [lid, eid, cid, saleDate, saleID], function(error, rows, fields) {
         if (error) {
@@ -592,44 +568,8 @@ app.put('/update-sale-ajax', function(req, res, next) {
                     console.log(error);
                     res.sendStatus(400);
                 } else {
-                    let sales = rows
-                    let query2 = "SELECT * FROM locations;";
-                    let query3 = "SELECT * FROM employees;";
-                    let query4 = "SELECT * FROM customers;";
-
-                    db.pool.query(query2, (error, rows, fields) => {
-                        let locations = rows;
-                        let locationsMap = {}
-                        locations.map(location => {
-                            let id = parseInt(location.location_id);
-                            locationsMap[id] = location["address_line"];
-                        })
-            
-                        db.pool.query(query3, (error, rows, fields) => {
-                            let employees = rows;
-                            let employeesMap = {}
-                            employees.map(employee => {
-                                let id = parseInt(employee.employee_id);
-                                employeesMap[id] = employee["employee_nametag"];
-                            })
-            
-                            db.pool.query(query4, (error, rows, fields) => {
-                                let customers = rows;
-                                let customersMap = {}
-                                customers.map(customer => {
-                                    let id = parseInt(customer.customer_id);
-                                    customersMap[id] = customer["customer_name"];
-                                })
-            
-                                // Overwrite the homeworld ID with the name of the planet in the people object
-                                sales = sales.map(sale => {
-                                    return Object.assign(sale, {Location: locationsMap[sale.Location], Employee: employeesMap[sale.Employee], Customer: customersMap[sale.Customer]})
-                                })
-            
-                                res.send(rows);
-                            })
-                        })
-                    })
+                    console.log(rows); // Debug
+                    res.send(rows);
                 }
             })
         }
@@ -678,18 +618,19 @@ app.post('/add-employees-locations-ajax', function(req, res) {
         location_id = Number(location_id);
     }
 
-    let query1 = `INSERT INTO location_has_employees (lid, eid) VALUES (${location_id}, '${employee_id}')`;
+    let query1 = `INSERT INTO location_has_employees (lid, eid) VALUES (${location_id}, ${employee_id})`;
     db.pool.query(query1, function(error, rows, fields) {
         if (error) {
             console.log(error);
             res.sendStatus(400);
         } else {
-            let query2 = `SELECT * FROM location_has_employees;`;
+            let query2 = "SELECT elid, employee_nametag, address_line FROM employees INNER JOIN location_has_employees ON employees.employee_id = location_has_employees.eid INNER JOIN locations ON locations.location_id = location_has_employees.lid ORDER BY employee_id;";
             db.pool.query(query2, function(error, rows, fields){
                 if (error) {
                     console.log(error);
                     res.sendStatus(400);
                 } else {
+                    console.log(rows); //debug line
                     res.send(rows);
                 }
             });
@@ -753,18 +694,19 @@ app.post('/add-location-inventory-ajax', function(req, res) {
         product_id = Number(product_id);
     }
 
-    let query1 = `INSERT INTO location_has_products (lid, pid) VALUES (${location_id}, '${product_id}')`;
+    let query1 = `INSERT INTO location_has_products (lid, pid) VALUES (${location_id}, ${product_id})`;
     db.pool.query(query1, function(error, rows, fields) {
         if (error) {
             console.log(error);
             res.sendStatus(400);
         } else {
-            let query2 = `SELECT * FROM location_has_products;`;
+            let query2 = "SELECT plid, address_line, label FROM locations INNER JOIN location_has_products ON locations.location_id = location_has_products.lid INNER JOIN products ON products.product_id = location_has_products.pid;";
             db.pool.query(query2, function(error, rows, fields){
                 if (error) {
                     console.log(error);
                     res.sendStatus(400);
                 } else {
+                    console.log(rows); //debug line
                     res.send(rows);
                 }
             });
@@ -842,8 +784,36 @@ app.post('/add-products_in_sales-ajax', function(req, res) {
             console.log(error);
             res.sendStatus(400);
         } else {
-            let query2 = `SELECT * FROM sale_has_products;`;
+            let query2 = "SELECT spid, sale_id, quantity, label FROM sale_has_products INNER JOIN sales ON sale_has_products.sid = sales.sale_id INNER JOIN products ON products.product_id = sale_has_products.pid;";
             db.pool.query(query2, function(error, rows, fields){
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    console.log(rows); //debug line
+                    res.send(rows);
+                }
+            });
+        }
+    });
+});
+
+app.put('/update-products_in_sales-ajax', function(req, res, next) {
+    let data = req.body;
+  
+    let saleID = data.sale_id;
+    let productID = data.product_id;
+    let quantity = data.quantity;
+  
+    let queryUpdateWorld = `UPDATE sale_has_products SET sid = ?, pid = ?, quantity = ? WHERE sid = ? AND pid = ?`;
+    let selectWorld = `SELECT spid, sale_id, quantity, label FROM sale_has_products INNER JOIN sales ON sale_has_products.sid = sales.sale_id INNER JOIN products ON products.product_id = sale_has_products.pid WHERE sale_has_products.sid = ? AND sale_has_products.pid = ?`
+  
+    db.pool.query(queryUpdateWorld, [saleID, productID, quantity, saleID, productID], function(error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            db.pool.query(selectWorld, [saleID, productID], function(error, rows, fields) {
                 if (error) {
                     console.log(error);
                     res.sendStatus(400);
@@ -851,7 +821,7 @@ app.post('/add-products_in_sales-ajax', function(req, res) {
                     console.log(rows);
                     res.send(rows);
                 }
-            });
+            })
         }
     });
 });
